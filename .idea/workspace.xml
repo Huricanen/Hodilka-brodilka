@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Сделаны заготовки для будущих классов. Реализован метод draw у класса Hero. Сделаны анимации в покое и в движении в зависимости от направления. Реализовано движение главного персонажа.">
+    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Поправлена анимация в покое, когда персонаж смотрит вправо. Теперь класс Hero унаследован от sprite и рисуется через метод update в составе группы спрайтов.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -103,7 +103,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736265624013</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Поправлена анимация в покое, когда персонаж смотрит вправо. Теперь класс Hero унаследован от sprite и рисуется через метод update в составе группы спрайтов.">
+      <option name="closed" value="true" />
+      <created>1736275202718</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1736275202718</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -120,6 +128,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Создана ветка для от main для работы с кодом" />
     <MESSAGE value="Сделаны заготовки для будущих классов. Реализован метод draw у класса Hero. Сделаны анимации в покое и в движении в зависимости от направления. Реализовано движение главного персонажа." />
-    <option name="LAST_COMMIT_MESSAGE" value="Сделаны заготовки для будущих классов. Реализован метод draw у класса Hero. Сделаны анимации в покое и в движении в зависимости от направления. Реализовано движение главного персонажа." />
+    <MESSAGE value="Поправлена анимация в покое, когда персонаж смотрит вправо. Теперь класс Hero унаследован от sprite и рисуется через метод update в составе группы спрайтов." />
+    <option name="LAST_COMMIT_MESSAGE" value="Поправлена анимация в покое, когда персонаж смотрит вправо. Теперь класс Hero унаследован от sprite и рисуется через метод update в составе группы спрайтов." />
   </component>
 </project>
