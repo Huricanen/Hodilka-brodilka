@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Создана ветка для от main для работы с кодом">
-      <change afterPath="$PROJECT_DIR$/data/Анимации_для_главного_героя.png" afterDir="false" />
+    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Сделаны заготовки для будущих классов. Реализован метод draw у класса Hero. Сделаны анимации в покое и в движении в зависимости от направления. Реализовано движение главного персонажа.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -25,24 +24,24 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2rIsTWkrbBww4GZq2fxyWBP9WZe" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "RK",
-    "last_opened_file_path": "C:/Users/ifosk/PycharmProjects/Hodilka-brodilka/data"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;RK&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ifosk/PycharmProjects/Hodilka-brodilka/data&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\ifosk\PycharmProjects\Hodilka-brodilka\data" />
@@ -96,7 +95,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736258454231</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Сделаны заготовки для будущих классов. Реализован метод draw у класса Hero. Сделаны анимации в покое и в движении в зависимости от направления. Реализовано движение главного персонажа.">
+      <option name="closed" value="true" />
+      <created>1736265624013</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1736265624013</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -112,6 +119,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Создана ветка для от main для работы с кодом" />
-    <option name="LAST_COMMIT_MESSAGE" value="Создана ветка для от main для работы с кодом" />
+    <MESSAGE value="Сделаны заготовки для будущих классов. Реализован метод draw у класса Hero. Сделаны анимации в покое и в движении в зависимости от направления. Реализовано движение главного персонажа." />
+    <option name="LAST_COMMIT_MESSAGE" value="Сделаны заготовки для будущих классов. Реализован метод draw у класса Hero. Сделаны анимации в покое и в движении в зависимости от направления. Реализовано движение главного персонажа." />
   </component>
 </project>
