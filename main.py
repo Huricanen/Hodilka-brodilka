@@ -51,7 +51,10 @@ class Hero(pygame.sprite.Sprite):
 
     def update(self):
         if self.moving:
-            self.anim_frames = 10
+            if self.v == 2:
+                self.anim_frames = 10
+            elif self.v == 4:
+                self.anim_frames = 5
             img_index = self.anim_index // self.anim_frames
             if img_index >= len(animations[f'moving_{self.facing}']):
                 img_index = 0
@@ -127,6 +130,11 @@ if __name__ == '__main__':
                 main_character.moving = True
             else:
                 main_character.moving = False
+                main_character.v = 2
+            if pygame.key.get_pressed()[pygame.K_LSHIFT] and main_character.moving:
+                main_character.v = 4
+            else:
+                main_character.v = 2
 
         all_sprites.update()
         clock.tick(fps)
