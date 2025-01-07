@@ -4,7 +4,10 @@ from PIL import Image
 im = Image.open('data/Анимации_для_главного_героя.png')
 for y in range(8):
     for x in range(10):
-        part = im.crop((120 * x, 130 * y, 120 * (x + 1), 130 * (y + 1)))
+        if y == 3 and x == 1:
+            part = im.crop((120 * x - 5, 130 * y, 120 * (x + 1), 130 * (y + 1)))
+        else:
+            part = im.crop((120 * x, 130 * y, 120 * (x + 1), 130 * (y + 1)))
         if len(part.getcolors()) == 1:
             pass
         else:
@@ -28,8 +31,9 @@ animations = {
 
 
 # класс главного героя
-class Hero:
-    def __init__(self, x, y, h, w):
+class Hero(pygame.sprite.Sprite):
+    def __init__(self, x, y, h, w, *groups):
+        super().__init__(*groups)
         self.x = x
         self.y = y
         self.height = h
@@ -45,7 +49,7 @@ class Hero:
 
         self.v = 2
 
-    def draw(self):
+    def update(self):
         if self.moving:
             self.anim_frames = 10
             img_index = self.anim_index // self.anim_frames
@@ -101,6 +105,7 @@ if __name__ == '__main__':
     main_character = Hero(x=50, y=50, h=130, w=120)
 
     all_sprites = pygame.sprite.Group()
+    all_sprites.add(main_character)
 
     while running:
         screen.fill((255, 255, 255))
@@ -123,8 +128,7 @@ if __name__ == '__main__':
             else:
                 main_character.moving = False
 
-        main_character.draw()
-        all_sprites.draw(screen)
+        all_sprites.update()
         clock.tick(fps)
         pygame.display.flip()
     pygame.quit()
