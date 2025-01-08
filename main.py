@@ -42,14 +42,33 @@ class Hero(pygame.sprite.Sprite):
         self.anim_index = 0
         self.anim_frames = 60
 
-        self.rect = pygame.Rect(x, y, height, width)
+        self.rect = pygame.Rect(x, y, self.height, self.width)
 
         self.facing = 'down'
         self.moving = False
 
         self.v = 2
 
+        self.image = pygame.image.load('data/1_1.png')
+
     def update(self):
+        rects_h = [i.rect for i in horizontal_borders]
+        rects_v = [i.rect for i in vertical_borders]
+        collision_index_h = self.rect.collidelist(rects_h)
+        collision_index_v = self.rect.collidelist(rects_v)
+        if self.moving:
+            if collision_index_h != -1:
+                rect = rects_h[collision_index_h]
+                if self.rect.y % rect.y < 10:  # проверка снизу
+                    self.y += self.v * 2
+                else:
+                    self.y -= self.v * 2
+            if collision_index_v != -1:
+                rect = rects_v[collision_index_v]
+                if self.rect.x % rect.x < 10:  # проверка справа
+                    self.x += self.v * 2
+                if self.rect.x % rect.x == self.rect.x:
+                    self.x -= self.v * 2
         if self.moving:
             if self.v == 2:
                 self.anim_frames = 10
@@ -69,9 +88,10 @@ class Hero(pygame.sprite.Sprite):
             elif self.facing == 'left':
                 self.x -= self.v
 
-            self.rect = pygame.Rect(self.x, self.y, height, width)
+            self.rect = pygame.Rect(self.x, self.y, self.height, self.width)
 
-            screen.blit(pygame.image.load(f'data/{animations[f'moving_{self.facing}'][img_index]}'), self.rect)
+            self.image = pygame.image.load(f'data/{animations[f'moving_{self.facing}'][img_index]}')
+            screen.blit(self.image, self.rect)
         else:
             self.anim_frames = 60
             img_index = self.anim_index // self.anim_frames
@@ -80,12 +100,25 @@ class Hero(pygame.sprite.Sprite):
                 self.anim_index = 0
             self.anim_index += 1
 
-            screen.blit(pygame.image.load(f'data/{animations[f'idle_{self.facing}'][img_index]}'), self.rect)
+            self.image = pygame.image.load(f'data/{animations[f'idle_{self.facing}'][img_index]}')
+            screen.blit(self.image, self.rect)
 
 
-class Wall:
-    def __init__(self):
-        pass
+class Wall(pygame.sprite.Sprite):
+    def __init__(self, x1, y1, x2, y2):
+        super().__init__(all_sprites)
+        if x2 - x1 <= y2 - y1:
+            self.add(vertical_borders)
+            self.image = pygame.Surface([x2 - x1, y2 - y1])
+            self.rect = pygame.Rect(x1, y1, x2 - x1, y2 - y1)
+        else:
+            self.add(horizontal_borders)
+            self.image = pygame.Surface([x2 - x1, y2 - y1])
+            self.rect = pygame.Rect(x1, y1, x2 - x1, y2 - y1)
+        self.x1 = x1
+        self.x2 = x2
+        self.y1 = y1
+        self.y2 = y2
 
 
 class Enemy:
@@ -97,7 +130,7 @@ if __name__ == '__main__':
 
     pygame.init()
     pygame.display.set_caption('Ходилка-бродилка')
-    size = width, height = 500, 500
+    size = w1, h1 = 500, 500
     screen = pygame.display.set_mode(size)
 
     running = True
@@ -105,14 +138,19 @@ if __name__ == '__main__':
     clock = pygame.time.Clock()
     screen.fill((255, 255, 255))
 
-    main_character = Hero(x=50, y=50, h=130, w=120)
+    main_character = Hero(x=30, y=30, h=120, w=130)
 
     all_sprites = pygame.sprite.Group()
     all_sprites.add(main_character)
 
+    horizontal_borders = pygame.sprite.Group()
+    vertical_borders = pygame.sprite.Group()
+
+    w = Wall(245, 205, 255, 305)
+    k = Wall(100, 200, 400, 205)
+
     while running:
         screen.fill((255, 255, 255))
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -136,6 +174,8 @@ if __name__ == '__main__':
             else:
                 main_character.v = 2
 
+        horizontal_borders.draw(screen)
+        vertical_borders.draw(screen)
         all_sprites.update()
         clock.tick(fps)
         pygame.display.flip()
