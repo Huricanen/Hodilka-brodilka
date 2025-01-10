@@ -51,6 +51,8 @@ class Hero(pygame.sprite.Sprite):
 
         self.image = pygame.image.load('data/1_1.png')
 
+        self.koef_angle = 9
+
     def update(self):
         rects_h = [i.rect for i in horizontal_borders]
         rects_v = [i.rect for i in vertical_borders]
@@ -59,16 +61,38 @@ class Hero(pygame.sprite.Sprite):
         if self.moving:
             if collision_index_h != -1:
                 rect = rects_h[collision_index_h]
-                if self.rect.y % rect.y < 10:  # проверка снизу
-                    self.y += self.v * 2
+                rect_mid_y = rect.y + rect.h // 2
+                rect_mid_x = rect.x + rect.w // 2
+                char_mid_y = self.rect.y + self.rect.h // 2
+                char_mid_x = self.rect.x + self.rect.w // 2
+                if (char_mid_y > rect_mid_y and char_mid_x in range(
+                        rect.x + self.rect.w // self.koef_angle, rect.x + rect.w - self.rect.w // self.koef_angle)):
+                    self.y += self.v
+                elif char_mid_y < rect_mid_y and char_mid_x in range(
+                        rect.x + self.rect.w // self.koef_angle, rect.x + rect.w - self.rect.w // self.koef_angle):
+                    self.y -= self.v
                 else:
-                    self.y -= self.v * 2
+                    if char_mid_x > rect_mid_x:
+                        self.x += self.v
+                    elif char_mid_x < rect_mid_x:
+                        self.x -= self.v
             if collision_index_v != -1:
                 rect = rects_v[collision_index_v]
-                if self.rect.x % rect.x < 10:  # проверка справа
-                    self.x += self.v * 2
-                if self.rect.x % rect.x == self.rect.x:
-                    self.x -= self.v * 2
+                rect_mid_y = rect.y + rect.h // 2
+                rect_mid_x = rect.x + rect.w // 2
+                char_mid_y = self.rect.y + self.rect.h // 2
+                char_mid_x = self.rect.x + self.rect.w // 2
+                if char_mid_x > rect_mid_x and char_mid_y in range(
+                        rect.y + self.rect.h // self.koef_angle, rect.y + rect.h - self.rect.h // self.koef_angle):
+                    self.x += self.v
+                elif char_mid_x < rect_mid_x and char_mid_y in range(
+                        rect.y + self.rect.h // self.koef_angle, rect.y + rect.h - self.rect.h // self.koef_angle):
+                    self.x -= self.v
+                else:
+                    if char_mid_y > rect_mid_y:
+                        self.y += self.v
+                    elif char_mid_y < rect_mid_y:
+                        self.y -= self.v
         if self.moving:
             if self.v == 2:
                 self.anim_frames = 10
@@ -130,7 +154,7 @@ if __name__ == '__main__':
 
     pygame.init()
     pygame.display.set_caption('Ходилка-бродилка')
-    size = w1, h1 = 500, 500
+    size = w1, h1 = 600, 600
     screen = pygame.display.set_mode(size)
 
     running = True
@@ -138,7 +162,7 @@ if __name__ == '__main__':
     clock = pygame.time.Clock()
     screen.fill((255, 255, 255))
 
-    main_character = Hero(x=30, y=30, h=120, w=130)
+    main_character = Hero(x=30, y=30, h=105, w=130)
 
     all_sprites = pygame.sprite.Group()
     all_sprites.add(main_character)
@@ -146,8 +170,8 @@ if __name__ == '__main__':
     horizontal_borders = pygame.sprite.Group()
     vertical_borders = pygame.sprite.Group()
 
-    w = Wall(245, 205, 255, 305)
-    k = Wall(100, 200, 400, 205)
+    w = Wall(251, 205, 270, 405)
+    k = Wall(100, 300, 400, 310)
 
     while running:
         screen.fill((255, 255, 255))
