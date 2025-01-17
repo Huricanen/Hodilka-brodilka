@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Сделана физика стен как вертикальных так и горизонтальных. Класс wall сконструирован. Также теперь картинка, которая в момент времени показывает героя, теперь хранится в self.image.">
+    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Переделана физика стен. Добавлено помощь игроку в виде обхода стен(когда игрок доходит до края стены, то и идёт вперёд, то в зависимости от коэффицента koef_angle, который можно изменять в классе Hero будет меняться расстояние от края до точки начала обхода стены.)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -127,7 +127,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736355168125</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Переделана физика стен. Добавлено помощь игроку в виде обхода стен(когда игрок доходит до края стены, то и идёт вперёд, то в зависимости от коэффицента koef_angle, который можно изменять в классе Hero будет меняться расстояние от края до точки начала обхода стены.)">
+      <option name="closed" value="true" />
+      <created>1736534683414</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1736534683414</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -147,6 +155,7 @@
     <MESSAGE value="Поправлена анимация в покое, когда персонаж смотрит вправо. Теперь класс Hero унаследован от sprite и рисуется через метод update в составе группы спрайтов." />
     <MESSAGE value="Сделан бег на левый shift" />
     <MESSAGE value="Сделана физика стен как вертикальных так и горизонтальных. Класс wall сконструирован. Также теперь картинка, которая в момент времени показывает героя, теперь хранится в self.image." />
-    <option name="LAST_COMMIT_MESSAGE" value="Сделана физика стен как вертикальных так и горизонтальных. Класс wall сконструирован. Также теперь картинка, которая в момент времени показывает героя, теперь хранится в self.image." />
+    <MESSAGE value="Переделана физика стен. Добавлено помощь игроку в виде обхода стен(когда игрок доходит до края стены, то и идёт вперёд, то в зависимости от коэффицента koef_angle, который можно изменять в классе Hero будет меняться расстояние от края до точки начала обхода стены.)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Переделана физика стен. Добавлено помощь игроку в виде обхода стен(когда игрок доходит до края стены, то и идёт вперёд, то в зависимости от коэффицента koef_angle, который можно изменять в классе Hero будет меняться расстояние от края до точки начала обхода стены.)" />
   </component>
 </project>

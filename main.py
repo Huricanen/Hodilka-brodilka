@@ -1,4 +1,4 @@
-import pygame
+import pygame, gif_pygame
 from PIL import Image
 
 im = Image.open('data/Анимации_для_главного_героя.png')
@@ -13,6 +13,7 @@ for y in range(8):
         else:
             part.save(f'data/{y + 1}_{x + 1}.png')
 im.close()
+
 
 animations = {
     'idle_down': ['1_1.png', '1_2.png', '1_3.png'],
@@ -52,6 +53,8 @@ class Hero(pygame.sprite.Sprite):
         self.image = pygame.image.load('data/1_1.png')
 
         self.koef_angle = 9
+
+        self.score = 0
 
     def update(self):
         rects_h = [i.rect for i in horizontal_borders]
@@ -145,6 +148,33 @@ class Wall(pygame.sprite.Sprite):
         self.y2 = y2
 
 
+class Collectible(pygame.sprite.Sprite):
+    def __init__(self, x, y, type):
+        super().__init__(all_sprites)
+        self.image = None
+        self.w = 20
+        self.h = 20
+        self.x = x
+        self.y = y
+        self.rect = pygame.Rect(x, y, self.w, self.h)
+
+        self.type = type
+
+        if type == 1:
+            self.cost = 5
+        elif type == 2:
+            self.cost = 10
+        elif type == 3:
+            self.cost = 20
+
+        self.add(all_sprites)
+
+        self.gif = gif_pygame.load(f"data/{'coin' if self.type == 1 else 'diamond'}.gif")
+
+    def update(self):
+        self.gif.render(screen, (128 - self.gif.get_width() * 0.5, 256 - self.gif.get_height() * 0.5))
+
+
 class Enemy:
     def __init__(self):
         pass
@@ -172,6 +202,7 @@ if __name__ == '__main__':
 
     w = Wall(251, 205, 270, 405)
     k = Wall(100, 300, 400, 310)
+    c = Collectible(150, 40, 1)
 
     while running:
         screen.fill((255, 255, 255))
