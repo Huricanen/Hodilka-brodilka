@@ -1,4 +1,4 @@
-import pygame
+import pygame, gif_pygame
 from PIL import Image
 
 im = Image.open('data/Анимации_для_главного_героя.png')
@@ -53,6 +53,8 @@ class Hero(pygame.sprite.Sprite):
 
         self.koef_angle = 9
 
+        self.score = 0
+
     def update(self):
         rects_h = [i.rect for i in horizontal_borders]
         rects_v = [i.rect for i in vertical_borders]
@@ -93,6 +95,12 @@ class Hero(pygame.sprite.Sprite):
                         self.y += self.v
                     elif char_mid_y < rect_mid_y:
                         self.y -= self.v
+        rects_coll = [i.rect for i in collectibles]
+        collision_index_coll = self.rect.collidelist(rects_coll)
+        if collision_index_coll != -1:
+            self.score += collectibles.sprites()[collision_index_coll].cost
+            collectibles.remove(collectibles.sprites()[collision_index_coll])
+
         if self.moving:
             if self.v == 2:
                 self.anim_frames = 10
@@ -127,6 +135,17 @@ class Hero(pygame.sprite.Sprite):
             self.image = pygame.image.load(f'data/{animations[f'idle_{self.facing}'][img_index]}')
             screen.blit(self.image, self.rect)
 
+        self.draw_hud()
+
+    def draw_hud(self):
+        font = pygame.font.Font(None, 100)
+        text = font.render(f"{self.score}", True, (255, 0, 0))
+        text_x = 30
+        text_y = 530
+        text_w = text.get_width()
+        text_h = text.get_height()
+        screen.blit(text, (text_x, text_y))
+
 
 class Wall(pygame.sprite.Sprite):
     def __init__(self, x1, y1, x2, y2):
@@ -143,6 +162,35 @@ class Wall(pygame.sprite.Sprite):
         self.x2 = x2
         self.y1 = y1
         self.y2 = y2
+
+
+class Collectible(pygame.sprite.Sprite):
+    def __init__(self, x, y, type):
+        super().__init__(all_sprites)
+        self.image = None
+        self.w = 75
+        self.h = 75
+        self.x = x
+        self.y = y
+        self.rect = pygame.Rect(x, y, self.w, self.h)
+
+        self.type = type
+
+        if type == 1:
+            self.cost = 5
+        elif type == 2:
+            self.cost = 10
+        elif type == 3:
+            self.cost = 20
+
+        self.add(collectibles)
+
+        self.gif = gif_pygame.load(f"data/{'coin' if self.type == 1 else ('money_bag'
+                                                                          if self.type == 2 else 'diamond')}.gif")
+
+    def update(self):
+        if self in collectibles:
+            self.gif.render(screen, (self.x, self.y))
 
 
 class Enemy:
@@ -167,11 +215,16 @@ if __name__ == '__main__':
     all_sprites = pygame.sprite.Group()
     all_sprites.add(main_character)
 
+    collectibles = pygame.sprite.Group()
+
     horizontal_borders = pygame.sprite.Group()
     vertical_borders = pygame.sprite.Group()
 
     w = Wall(251, 205, 270, 405)
     k = Wall(100, 300, 400, 310)
+    c = Collectible(150, 40, 1)
+    f = Collectible(300, 40, 2)
+    v = Collectible(200, 80, 3)
 
     while running:
         screen.fill((255, 255, 255))
