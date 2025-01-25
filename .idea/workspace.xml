@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Реализован класс предметов, которые можно собирать, сделана две гифки: 1 - монетка (type = 1) 2 - diamond (type = 2), 3 тип пока не сделан.">
+    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Реализован класс предметов, которые можно собирать, сделана две гифки: 1 - монетка (type = 1) 2 - мешок с монетами (type = 2), 3 - алмаз. Реализован сбор предметов по касанию и увеличение количества очков.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -16,7 +16,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="Global_changes_testing" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -33,15 +33,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;RK&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ifosk/PycharmProjects/Hodilka-brodilka/data&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.main.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "RK",
+    "last_opened_file_path": "C:/Users/ifosk/PycharmProjects/Hodilka-brodilka/data"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\ifosk\PycharmProjects\Hodilka-brodilka\data" />
@@ -143,7 +143,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737136987867</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Реализован класс предметов, которые можно собирать, сделана две гифки: 1 - монетка (type = 1) 2 - мешок с монетами (type = 2), 3 - алмаз. Реализован сбор предметов по касанию и увеличение количества очков.">
+      <option name="closed" value="true" />
+      <created>1737188728684</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1737188728684</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -151,7 +159,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="Global_changes_testing" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -165,6 +185,7 @@
     <MESSAGE value="Сделана физика стен как вертикальных так и горизонтальных. Класс wall сконструирован. Также теперь картинка, которая в момент времени показывает героя, теперь хранится в self.image." />
     <MESSAGE value="Переделана физика стен. Добавлено помощь игроку в виде обхода стен(когда игрок доходит до края стены, то и идёт вперёд, то в зависимости от коэффицента koef_angle, который можно изменять в классе Hero будет меняться расстояние от края до точки начала обхода стены.)" />
     <MESSAGE value="Реализован класс предметов, которые можно собирать, сделана две гифки: 1 - монетка (type = 1) 2 - diamond (type = 2), 3 тип пока не сделан." />
-    <option name="LAST_COMMIT_MESSAGE" value="Реализован класс предметов, которые можно собирать, сделана две гифки: 1 - монетка (type = 1) 2 - diamond (type = 2), 3 тип пока не сделан." />
+    <MESSAGE value="Реализован класс предметов, которые можно собирать, сделана две гифки: 1 - монетка (type = 1) 2 - мешок с монетами (type = 2), 3 - алмаз. Реализован сбор предметов по касанию и увеличение количества очков." />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализован класс предметов, которые можно собирать, сделана две гифки: 1 - монетка (type = 1) 2 - мешок с монетами (type = 2), 3 - алмаз. Реализован сбор предметов по касанию и увеличение количества очков." />
   </component>
 </project>

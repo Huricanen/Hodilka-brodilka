@@ -1,4 +1,5 @@
-import pygame, gif_pygame
+import pygame
+import gif_pygame
 from PIL import Image
 
 im = Image.open('data/Анимации_для_главного_героя.png')
@@ -32,8 +33,8 @@ animations = {
 
 # класс главного героя
 class Hero(pygame.sprite.Sprite):
-    def __init__(self, x, y, h, w, *groups):
-        super().__init__(*groups)
+    def __init__(self, x, y, h, w, group):
+        super().__init__(group)
         self.x = x
         self.y = y
         self.height = h
@@ -99,7 +100,7 @@ class Hero(pygame.sprite.Sprite):
         collision_index_coll = self.rect.collidelist(rects_coll)
         if collision_index_coll != -1:
             self.score += collectibles.sprites()[collision_index_coll].cost
-            collectibles.remove(collectibles.sprites()[collision_index_coll])
+            collectibles.sprites()[collision_index_coll].kill()
 
         if self.moving:
             if self.v == 2:
@@ -111,13 +112,13 @@ class Hero(pygame.sprite.Sprite):
                 img_index = 0
                 self.anim_index = 0
             self.anim_index += 1
-            if self.facing == 'down':
+            if 'down' in self.facing:
                 self.y += self.v
-            elif self.facing == 'up':
+            if 'up' in self.facing:
                 self.y -= self.v
-            elif self.facing == 'right':
+            if 'right' in self.facing:
                 self.x += self.v
-            elif self.facing == 'left':
+            if 'left' in self.facing:
                 self.x -= self.v
 
             self.rect = pygame.Rect(self.x, self.y, self.height, self.width)
@@ -135,21 +136,10 @@ class Hero(pygame.sprite.Sprite):
             self.image = pygame.image.load(f'data/{animations[f'idle_{self.facing}'][img_index]}')
             screen.blit(self.image, self.rect)
 
-        self.draw_hud()
-
-    def draw_hud(self):
-        font = pygame.font.Font(None, 100)
-        text = font.render(f"{self.score}", True, (255, 0, 0))
-        text_x = 30
-        text_y = 530
-        text_w = text.get_width()
-        text_h = text.get_height()
-        screen.blit(text, (text_x, text_y))
-
 
 class Wall(pygame.sprite.Sprite):
-    def __init__(self, x1, y1, x2, y2):
-        super().__init__(all_sprites)
+    def __init__(self, x1, y1, x2, y2, group):
+        super().__init__(group)
         if x2 - x1 <= y2 - y1:
             self.add(vertical_borders)
             self.image = pygame.Surface([x2 - x1, y2 - y1])
@@ -165,8 +155,8 @@ class Wall(pygame.sprite.Sprite):
 
 
 class Collectible(pygame.sprite.Sprite):
-    def __init__(self, x, y, type):
-        super().__init__(all_sprites)
+    def __init__(self, x, y, type, group):
+        super().__init__(group)
         self.image = None
         self.w = 75
         self.h = 75
@@ -185,12 +175,23 @@ class Collectible(pygame.sprite.Sprite):
 
         self.add(collectibles)
 
-        self.gif = gif_pygame.load(f"data/{'coin' if self.type == 1 else ('money_bag'
-                                                                          if self.type == 2 else 'diamond')}.gif")
+        self.image = pygame.image.load('data/money_bag.gif')
 
-    def update(self):
-        if self in collectibles:
-            self.gif.render(screen, (self.x, self.y))
+
+class Hud(pygame.sprite.Sprite):
+    def __init__(self, group, level):
+        super().__init__(group)
+        self.font = pygame.font.SysFont('Serif', 250)
+        self.text = self.font.render(f"{main_character.score}/{level_chosen * 120}",
+                                     True, (255, 0, 0))
+        self.text2 = self.font.render(f"{(pygame.time.get_ticks() - time_level_started) // 1000}", True,
+                                      (255, 255, 0))
+        self.rect = pygame.Rect(1, 1, 9999, 9999)
+
+    def upd(self):
+        self.text = self.font.render(f"{main_character.score}", True, (255, 0, 0))
+        self.text2 = self.font.render(f"{(pygame.time.get_ticks() - time_level_started) // 1000}/"
+                                      f"{level_chosen * 120}", True, (255, 255, 0))
 
 
 class Enemy:
@@ -198,33 +199,206 @@ class Enemy:
         pass
 
 
+class CameraGroup(pygame.sprite.Group):
+    def __init__(self):
+        super().__init__()
+        self.display_surface = pygame.display.get_surface()
+
+        # camera offset
+        self.offset = pygame.math.Vector2()
+        self.half_w = self.display_surface.get_size()[0] // 2
+        self.half_h = self.display_surface.get_size()[1] // 2
+
+        # ground
+        self.ground_surf = pygame.image.load('data/ground.png').convert_alpha()
+        self.ground_rect = self.ground_surf.get_rect(topleft=(0, 0))
+
+        # camera speed
+        self.keyboard_speed = 5
+        self.mouse_speed = 0.2
+
+    def center_target_camera(self, target):
+        self.offset.x = target.rect.centerx - self.half_w
+        self.offset.y = target.rect.centery - self.half_h
+
+    def custom_draw(self, player):
+        self.center_target_camera(player)
+
+        ground_offset = self.ground_rect.topleft - self.offset
+        self.display_surface.blit(self.ground_surf, ground_offset)
+
+        for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
+            offset_pos = sprite.rect.topleft - self.offset
+            if sprite.image is None:
+                sprite.upd()
+                self.display_surface.blit(sprite.text, (10, 850))
+                self.display_surface.blit(sprite.text2, (960, 850))
+            else:
+                self.display_surface.blit(sprite.image, offset_pos)
+
+
+def start_screen():
+    global need1
+    color = (255, 255, 255)
+    color_light = (170, 170, 170)
+    color_dark = (100, 100, 100)
+    width = screen.get_width()
+    smallfont = pygame.font.SysFont('Corbel', 35)
+    height = screen.get_height()
+    text1 = smallfont.render('quit', True, color)
+    text2 = smallfont.render('choose level', True, color)
+    need1 = True
+
+    while need1:
+        for ev in pygame.event.get():
+            if ev.type == pygame.QUIT:
+                pygame.quit()
+            if ev.type == pygame.MOUSEBUTTONDOWN:
+                if width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 <= mouse[1] <= height / 2 + 40:
+                    pygame.quit()
+                elif width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 120:
+                    choose_level()
+        screen.fill((60, 25, 60))
+        mouse = pygame.mouse.get_pos()
+        if width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 <= mouse[1] <= height / 2 + 40:
+            pygame.draw.rect(screen, color_light, [width / 2 - 140, height / 2, 280, 40])
+        else:
+            pygame.draw.rect(screen, color_dark, [width / 2 - 140, height / 2, 280, 40])
+        if width / 2 - 140 <= mouse[0] < width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 120:
+            pygame.draw.rect(screen, color_light, [width / 2 - 140, height / 2 + 50, 280, 40])
+        else:
+            pygame.draw.rect(screen, color_dark, [width / 2 - 140, height / 2 + 50, 280, 40])
+        screen.blit(text1, (width / 2 - 25, height / 2))
+        screen.blit(text2, (width / 2 - 75, height / 2 + 50))
+
+        pygame.display.update()
+
+
+def choose_level():
+    global need1, level_chosen, time_level_started
+    color = (255, 255, 255)
+    color_light = (170, 170, 170)
+    color_dark = (100, 100, 100)
+    width = screen.get_width()
+    smallfont = pygame.font.SysFont('Corbel', 35)
+    height = screen.get_height()
+    text1 = smallfont.render('Go back', True, color)
+    text2 = smallfont.render('level 1', True, color)
+    need = True
+
+    while need:
+        for ev in pygame.event.get():
+            if ev.type == pygame.QUIT:
+                pygame.quit()
+            if ev.type == pygame.MOUSEBUTTONDOWN:
+                if width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 <= mouse[1] <= height / 2 + 40:
+                    need = False
+                elif width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 120:
+                    level_chosen = 1
+                    need = False
+                    need1 = False
+                    break
+        screen.fill((60, 150, 60))
+        mouse = pygame.mouse.get_pos()
+        if width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 <= mouse[1] <= height / 2 + 40:
+            pygame.draw.rect(screen, color_light, [width / 2 - 140, height / 2, 280, 40])
+        else:
+            pygame.draw.rect(screen, color_dark, [width / 2 - 140, height / 2, 280, 40])
+        if width / 2 - 140 <= mouse[0] < width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 120:
+            pygame.draw.rect(screen, color_light, [width / 2 - 140, height / 2 + 50, 280, 40])
+        else:
+            pygame.draw.rect(screen, color_dark, [width / 2 - 140, height / 2 + 50, 280, 40])
+        screen.blit(text1, (width / 2 - 50, height / 2))
+        screen.blit(text2, (width / 2 - 25, height / 2 + 50))
+
+        pygame.display.update()
+
+    time_level_started = pygame.time.get_ticks()
+    start_level(level_chosen)
+
+
+def finish():
+    color = (255, 255, 255)
+    color_light = (170, 170, 170)
+    color_dark = (100, 100, 100)
+    width = screen.get_width()
+    smallfont = pygame.font.SysFont('Corbel', 35)
+    height = screen.get_height()
+    text1 = smallfont.render('Congatulations!!!', True, color)
+    text2 = smallfont.render('quit', True, color)
+    text3 = smallfont.render(f'Your score: {main_character.score}', True, (255, 0, 0))
+    main_character.score = 0
+    need3 = True
+
+    while need3:
+        for ev in pygame.event.get():
+            if ev.type == pygame.QUIT:
+                pygame.quit()
+            if ev.type == pygame.MOUSEBUTTONDOWN:
+                if width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 120:
+                    need3 = False
+                    break
+        screen.fill((60, 25, 60))
+        mouse = pygame.mouse.get_pos()
+        if width / 2 - 140 <= mouse[0] < width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 120:
+            pygame.draw.rect(screen, color_light, [width / 2 - 140, height / 2 + 50, 280, 40])
+        else:
+            pygame.draw.rect(screen, color_dark, [width / 2 - 140, height / 2 + 50, 280, 40])
+        screen.blit(text1, (width / 2 - 50, height / 2))
+        screen.blit(text2, (width / 2 - 25, height / 2 + 50))
+        screen.blit(text3, (width / 2 - 25, height / 2 + 100))
+
+        pygame.display.update()
+
+    start_screen()
+
+
+def start_level(level):
+    if level == 1:
+        main_character.x = 500
+        main_character.y = 500
+        g1 = Wall(-500, 1000, 1920 + 500, 2000, camera_group)
+        g2 = Wall(-500, -500, 1920 + 500, 0, camera_group)
+        g3 = Wall(-1000, -500, 0, 1080 + 500, camera_group)
+        g4 = Wall(1920, -500, 1920 + 1000, 1500, camera_group)
+        w = Wall(251, 205, 270, 405, camera_group)
+        k = Wall(100, 300, 400, 310, camera_group)
+        c = Collectible(150, 40, 1, camera_group)
+        f = Collectible(300, 40, 2, camera_group)
+        v = Collectible(200, 80, 3, camera_group)
+        Collectible(50, 400, 1, camera_group)
+        Collectible(100, 400, 1, camera_group)
+        Collectible(150, 400, 1, camera_group)
+        Collectible(200, 400, 1, camera_group)
+
 if __name__ == '__main__':
 
     pygame.init()
     pygame.display.set_caption('Ходилка-бродилка')
-    size = w1, h1 = 600, 600
+    size = w1, h1 = 1920, 1080
     screen = pygame.display.set_mode(size)
+
+    level_chosen = None
 
     running = True
     fps = 60
     clock = pygame.time.Clock()
     screen.fill((255, 255, 255))
 
-    main_character = Hero(x=30, y=30, h=105, w=130)
+    camera_group = CameraGroup()
+
+    main_character = Hero(x=500, y=500, h=110, w=130, group=camera_group)
 
     all_sprites = pygame.sprite.Group()
-    all_sprites.add(main_character)
 
     collectibles = pygame.sprite.Group()
 
     horizontal_borders = pygame.sprite.Group()
     vertical_borders = pygame.sprite.Group()
 
-    w = Wall(251, 205, 270, 405)
-    k = Wall(100, 300, 400, 310)
-    c = Collectible(150, 40, 1)
-    f = Collectible(300, 40, 2)
-    v = Collectible(200, 80, 3)
+    start_screen()
+
+    hud = Hud(camera_group, level_chosen)
 
     while running:
         screen.fill((255, 255, 255))
@@ -250,10 +424,10 @@ if __name__ == '__main__':
                 main_character.v = 4
             else:
                 main_character.v = 2
-
-        horizontal_borders.draw(screen)
-        vertical_borders.draw(screen)
-        all_sprites.update()
+        if (pygame.time.get_ticks() - time_level_started) // 1000 > 120 or len(collectibles.sprites()) == 0:
+            finish()
+        main_character.update()
+        camera_group.custom_draw(main_character)
         clock.tick(fps)
         pygame.display.flip()
     pygame.quit()
