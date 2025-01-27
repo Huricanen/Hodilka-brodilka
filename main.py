@@ -27,7 +27,10 @@ animations = {
     'moving_up': ['7_1.png', '7_2.png', '7_3.png', '7_4.png', '7_5.png', '7_6.png', '7_7.png', '7_8.png', '7_9.png',
                   '7_10.png'],
     'moving_right': ['8_1.png', '8_2.png', '8_3.png', '8_4.png', '8_5.png', '8_6.png', '8_7.png', '8_8.png', '8_9.png',
-                     '8_10.png']
+                     '8_10.png'],
+    'coin': ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png'],
+    'money_bag': ['1.png', '2.png', '3.png', '4.png'],
+    'diamond': ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png', '10.png']
 }
 
 
@@ -175,7 +178,22 @@ class Collectible(pygame.sprite.Sprite):
 
         self.add(collectibles)
 
-        self.image = pygame.image.load('data/money_bag.gif')
+        self.type_text = f'{"coin" if self.type == 1 else ("money_bag" if self.type == 2 else "diamond")}'
+
+        self.image = pygame.image.load(f'data/{self.type_text}/1.png')
+
+        self.anim_frames = 30 if type == 2 else 5
+        self.anim_index = 0
+
+    def update(self):
+        img_index = self.anim_index // self.anim_frames
+        if img_index >= len(animations[self.type_text]):
+            img_index = 0
+            self.anim_index = 0
+        self.anim_index += 1
+
+        self.image = pygame.image.load(f'data/{self.type_text}/{animations[self.type_text][img_index]}')
+        screen.blit(self.image, self.rect)
 
 
 class Hud(pygame.sprite.Sprite):
@@ -357,6 +375,7 @@ def start_level(level):
     if level == 1:
         main_character.x = 500
         main_character.y = 500
+        main_character.update()
         g1 = Wall(-500, 1000, 1920 + 500, 2000, camera_group)
         g2 = Wall(-500, -500, 1920 + 500, 0, camera_group)
         g3 = Wall(-1000, -500, 0, 1080 + 500, camera_group)
@@ -370,6 +389,7 @@ def start_level(level):
         Collectible(100, 400, 1, camera_group)
         Collectible(150, 400, 1, camera_group)
         Collectible(200, 400, 1, camera_group)
+
 
 if __name__ == '__main__':
 
@@ -426,6 +446,7 @@ if __name__ == '__main__':
                 main_character.v = 2
         if (pygame.time.get_ticks() - time_level_started) // 1000 > 120 or len(collectibles.sprites()) == 0:
             finish()
+        collectibles.update()
         main_character.update()
         camera_group.custom_draw(main_character)
         clock.tick(fps)

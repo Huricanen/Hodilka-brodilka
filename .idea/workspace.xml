@@ -4,8 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Реализован класс предметов, которые можно собирать, сделана две гифки: 1 - монетка (type = 1) 2 - мешок с монетами (type = 2), 3 - алмаз. Реализован сбор предметов по касанию и увеличение количества очков.">
+    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Очень много нового. Сделан начальный экран. Сделан выбор уровней. Сделан 1-ый пробный уровень. Сделан фон таймер. Сделан экран по выводу результатов.">
+      <change afterPath="$PROJECT_DIR$/data/coin/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/coin/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/coin/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/coin/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/coin/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/coin/6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/diamond/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/diamond/10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/diamond/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/diamond/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/diamond/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/diamond/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/diamond/6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/diamond/7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/diamond/8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/diamond/9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/money_bag/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/money_bag/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/money_bag/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/money_bag/4.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/coin.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/diamond.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/money_bag.gif" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,11 +62,14 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "RK",
-    "last_opened_file_path": "C:/Users/ifosk/PycharmProjects/Hodilka-brodilka/data"
+    "last_opened_file_path": "C:/Users/ifosk/PycharmProjects/Hodilka-brodilka/data/diamond"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ifosk\PycharmProjects\Hodilka-brodilka\data\diamond" />
+      <recent name="C:\Users\ifosk\PycharmProjects\Hodilka-brodilka\data\money_bag" />
+      <recent name="C:\Users\ifosk\PycharmProjects\Hodilka-brodilka\data\coin" />
       <recent name="C:\Users\ifosk\PycharmProjects\Hodilka-brodilka\data" />
     </key>
   </component>
@@ -151,7 +177,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737188728684</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Очень много нового. Сделан начальный экран. Сделан выбор уровней. Сделан 1-ый пробный уровень. Сделан фон таймер. Сделан экран по выводу результатов.">
+      <option name="closed" value="true" />
+      <created>1737822688149</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1737822688149</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -186,6 +220,7 @@
     <MESSAGE value="Переделана физика стен. Добавлено помощь игроку в виде обхода стен(когда игрок доходит до края стены, то и идёт вперёд, то в зависимости от коэффицента koef_angle, который можно изменять в классе Hero будет меняться расстояние от края до точки начала обхода стены.)" />
     <MESSAGE value="Реализован класс предметов, которые можно собирать, сделана две гифки: 1 - монетка (type = 1) 2 - diamond (type = 2), 3 тип пока не сделан." />
     <MESSAGE value="Реализован класс предметов, которые можно собирать, сделана две гифки: 1 - монетка (type = 1) 2 - мешок с монетами (type = 2), 3 - алмаз. Реализован сбор предметов по касанию и увеличение количества очков." />
-    <option name="LAST_COMMIT_MESSAGE" value="Реализован класс предметов, которые можно собирать, сделана две гифки: 1 - монетка (type = 1) 2 - мешок с монетами (type = 2), 3 - алмаз. Реализован сбор предметов по касанию и увеличение количества очков." />
+    <MESSAGE value="Очень много нового. Сделан начальный экран. Сделан выбор уровней. Сделан 1-ый пробный уровень. Сделан фон таймер. Сделан экран по выводу результатов." />
+    <option name="LAST_COMMIT_MESSAGE" value="Очень много нового. Сделан начальный экран. Сделан выбор уровней. Сделан 1-ый пробный уровень. Сделан фон таймер. Сделан экран по выводу результатов." />
   </component>
 </project>
