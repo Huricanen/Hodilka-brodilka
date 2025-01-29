@@ -211,7 +211,6 @@ class Hud(pygame.sprite.Sprite):
         self.text2 = self.font.render(f"{(pygame.time.get_ticks() - time_level_started) // 1000}/"
                                       f"{level_chosen * 120}", True, (255, 255, 0))
 
-
 class Enemy:
     def __init__(self):
         pass
@@ -257,6 +256,7 @@ class CameraGroup(pygame.sprite.Group):
 
 def start_screen():
     global need1
+    img = pygame.image.load('data/backgrounds/bg1.png')
     color = (255, 255, 255)
     color_light = (170, 170, 170)
     color_dark = (100, 100, 100)
@@ -274,15 +274,15 @@ def start_screen():
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 <= mouse[1] <= height / 2 + 40:
                     pygame.quit()
-                elif width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 120:
+                elif width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 90:
                     choose_level()
-        screen.fill((60, 25, 60))
+        screen.blit(img, (0, 0))
         mouse = pygame.mouse.get_pos()
         if width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 <= mouse[1] <= height / 2 + 40:
             pygame.draw.rect(screen, color_light, [width / 2 - 140, height / 2, 280, 40])
         else:
             pygame.draw.rect(screen, color_dark, [width / 2 - 140, height / 2, 280, 40])
-        if width / 2 - 140 <= mouse[0] < width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 120:
+        if width / 2 - 140 <= mouse[0] < width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 90:
             pygame.draw.rect(screen, color_light, [width / 2 - 140, height / 2 + 50, 280, 40])
         else:
             pygame.draw.rect(screen, color_dark, [width / 2 - 140, height / 2 + 50, 280, 40])
@@ -294,6 +294,7 @@ def start_screen():
 
 def choose_level():
     global need1, level_chosen, time_level_started
+    img = pygame.image.load('data/backgrounds/bg2.png')
     color = (255, 255, 255)
     color_light = (170, 170, 170)
     color_dark = (100, 100, 100)
@@ -311,18 +312,18 @@ def choose_level():
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 <= mouse[1] <= height / 2 + 40:
                     need = False
-                elif width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 120:
+                elif width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 90:
                     level_chosen = 1
                     need = False
                     need1 = False
                     break
-        screen.fill((60, 150, 60))
+        screen.blit(img, (0, 0))
         mouse = pygame.mouse.get_pos()
         if width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 <= mouse[1] <= height / 2 + 40:
             pygame.draw.rect(screen, color_light, [width / 2 - 140, height / 2, 280, 40])
         else:
             pygame.draw.rect(screen, color_dark, [width / 2 - 140, height / 2, 280, 40])
-        if width / 2 - 140 <= mouse[0] < width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 120:
+        if width / 2 - 140 <= mouse[0] < width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 90:
             pygame.draw.rect(screen, color_light, [width / 2 - 140, height / 2 + 50, 280, 40])
         else:
             pygame.draw.rect(screen, color_dark, [width / 2 - 140, height / 2 + 50, 280, 40])
@@ -336,6 +337,7 @@ def choose_level():
 
 
 def finish():
+    img = pygame.image.load('data/backgrounds/bg4.png')
     color = (255, 255, 255)
     color_light = (170, 170, 170)
     color_dark = (100, 100, 100)
@@ -346,6 +348,7 @@ def finish():
     text2 = smallfont.render('quit', True, color)
     text3 = smallfont.render(f'Your score: {main_character.score}', True, (255, 0, 0))
     main_character.score = 0
+    time_level_started = None
     need3 = True
 
     while need3:
@@ -353,22 +356,68 @@ def finish():
             if ev.type == pygame.QUIT:
                 pygame.quit()
             if ev.type == pygame.MOUSEBUTTONDOWN:
-                if width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 120:
+                if width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 + 100 <= mouse[1] <= height / 2 + 140:
                     need3 = False
                     break
-        screen.fill((60, 25, 60))
+        screen.blit(img, (0, 0))
         mouse = pygame.mouse.get_pos()
-        if width / 2 - 140 <= mouse[0] < width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 120:
+        if width / 2 - 140 <= mouse[0] < width / 2 + 140 and height / 2 + 100 <= mouse[1] <= height / 2 + 140:
+            pygame.draw.rect(screen, color_light, [width / 2 - 140, height / 2 + 100, 280, 40])
+        else:
+            pygame.draw.rect(screen, color_dark, [width / 2 - 140, height / 2 + 100, 280, 40])
+        screen.blit(text1, (width / 2 - 90, height / 2))
+        screen.blit(text2, (width / 2 - 25, height / 2 + 100))
+        screen.blit(text3, (width / 2 - 85, height / 2 + 50))
+
+        pygame.display.update()
+
+    start_screen()
+
+
+def menu():
+    global need_to_quit_level, time_level_started
+    img = pygame.image.load('data/backgrounds/bg3.png')
+    color = (255, 255, 255)
+    color_light = (170, 170, 170)
+    color_dark = (100, 100, 100)
+    width = screen.get_width()
+    smallfont = pygame.font.SysFont('Corbel', 35)
+    height = screen.get_height()
+    text1 = smallfont.render('Quit level', True, color)
+    text2 = smallfont.render('Go back', True, color)
+    need4 = True
+    time_menu_first_opened = pygame.time.get_ticks()
+
+    while need4:
+        for ev in pygame.event.get():
+            if ev.type == pygame.QUIT:
+                pygame.quit()
+            if ev.type == pygame.MOUSEBUTTONDOWN:
+                if width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 <= mouse[1] <= height / 2 + 40:
+                    need_to_quit_level = True
+                    need4 = False
+                    break
+                elif width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 90:
+                    need4 = False
+                    break
+        time_menu_is_open = pygame.time.get_ticks() - time_menu_first_opened
+        screen.blit(img, (0, 0))
+        mouse = pygame.mouse.get_pos()
+        if width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 <= mouse[1] <= height / 2 + 40:
+            pygame.draw.rect(screen, color_light, [width / 2 - 140, height / 2, 280, 40])
+        else:
+            pygame.draw.rect(screen, color_dark, [width / 2 - 140, height / 2, 280, 40])
+        if width / 2 - 140 <= mouse[0] < width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 90:
             pygame.draw.rect(screen, color_light, [width / 2 - 140, height / 2 + 50, 280, 40])
         else:
             pygame.draw.rect(screen, color_dark, [width / 2 - 140, height / 2 + 50, 280, 40])
         screen.blit(text1, (width / 2 - 50, height / 2))
         screen.blit(text2, (width / 2 - 25, height / 2 + 50))
-        screen.blit(text3, (width / 2 - 25, height / 2 + 100))
 
         pygame.display.update()
 
-    start_screen()
+    time_level_started += time_menu_is_open
+
 
 
 def start_level(level):
@@ -398,7 +447,9 @@ if __name__ == '__main__':
     size = w1, h1 = 1920, 1080
     screen = pygame.display.set_mode(size)
 
+    time_level_started = None
     level_chosen = None
+    need_to_quit_level = False
 
     running = True
     fps = 60
@@ -425,6 +476,10 @@ if __name__ == '__main__':
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            elif time_level_started is not None and pygame.key.get_pressed()[pygame.K_ESCAPE]:
+                menu()
+                if need_to_quit_level:
+                    finish()
             elif pygame.key.get_pressed()[pygame.K_w]:
                 main_character.facing = 'up'
                 main_character.moving = True
