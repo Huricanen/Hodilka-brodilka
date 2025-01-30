@@ -211,6 +211,7 @@ class Hud(pygame.sprite.Sprite):
         self.text2 = self.font.render(f"{(pygame.time.get_ticks() - time_level_started) // 1000}/"
                                       f"{level_chosen * 120}", True, (255, 255, 0))
 
+
 class Enemy:
     def __init__(self):
         pass
@@ -263,7 +264,7 @@ def start_screen():
     width = screen.get_width()
     smallfont = pygame.font.SysFont('Corbel', 35)
     height = screen.get_height()
-    text1 = smallfont.render('quit', True, color)
+    text1 = smallfont.render('Exit', True, color)
     text2 = smallfont.render('choose level', True, color)
     need1 = True
 
@@ -337,6 +338,10 @@ def choose_level():
 
 
 def finish():
+    global need_to_start_main_screen, need_to_quit_level, delay_at_the_end
+    time_level_finished = pygame.time.get_ticks()
+    while (pygame.time.get_ticks() - time_level_finished) // 1000 != delay_at_the_end and not need_to_quit_level:
+        pass
     img = pygame.image.load('data/backgrounds/bg4.png')
     color = (255, 255, 255)
     color_light = (170, 170, 170)
@@ -349,7 +354,9 @@ def finish():
     text3 = smallfont.render(f'Your score: {main_character.score}', True, (255, 0, 0))
     main_character.score = 0
     time_level_started = None
+    need_to_start_main_screen = False
     need3 = True
+    need_to_quit_level = False
 
     while need3:
         for ev in pygame.event.get():
@@ -357,6 +364,7 @@ def finish():
                 pygame.quit()
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 + 100 <= mouse[1] <= height / 2 + 140:
+                    need_to_start_main_screen = True
                     need3 = False
                     break
         screen.blit(img, (0, 0))
@@ -370,6 +378,10 @@ def finish():
         screen.blit(text3, (width / 2 - 85, height / 2 + 50))
 
         pygame.display.update()
+
+    [i.kill() for i in horizontal_borders]
+    [i.kill() for i in vertical_borders]
+    [i.kill() for i in collectibles]
 
     start_screen()
 
@@ -387,7 +399,6 @@ def menu():
     text2 = smallfont.render('Go back', True, color)
     need4 = True
     time_menu_first_opened = pygame.time.get_ticks()
-
     while need4:
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
@@ -419,11 +430,12 @@ def menu():
     time_level_started += time_menu_is_open
 
 
-
 def start_level(level):
     if level == 1:
         main_character.x = 500
         main_character.y = 500
+        main_character.rect.x = 500
+        main_character.rect.y = 500
         main_character.update()
         g1 = Wall(-500, 1000, 1920 + 500, 2000, camera_group)
         g2 = Wall(-500, -500, 1920 + 500, 0, camera_group)
@@ -450,6 +462,8 @@ if __name__ == '__main__':
     time_level_started = None
     level_chosen = None
     need_to_quit_level = False
+
+    delay_at_the_end = 2
 
     running = True
     fps = 60
