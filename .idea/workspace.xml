@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Была вернута анимация для предметов.">
+    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Сделан delay перед завершением уровня. Пофикшены некоторые баги.">
+      <change afterPath="$PROJECT_DIR$/data/hit.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hurt.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level_music.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/main_menu_theme.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -33,21 +37,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;RK&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ifosk/PycharmProjects/Hodilka-brodilka/data/diamond&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.main.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "RK",
+    "last_opened_file_path": "C:/Users/ifosk/PycharmProjects/Hodilka-brodilka/data"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ifosk\PycharmProjects\Hodilka-brodilka\data" />
       <recent name="C:\Users\ifosk\PycharmProjects\Hodilka-brodilka\data\diamond" />
       <recent name="C:\Users\ifosk\PycharmProjects\Hodilka-brodilka\data\money_bag" />
       <recent name="C:\Users\ifosk\PycharmProjects\Hodilka-brodilka\data\coin" />
-      <recent name="C:\Users\ifosk\PycharmProjects\Hodilka-brodilka\data" />
     </key>
   </component>
   <component name="RunManager">
@@ -170,7 +174,23 @@
       <option name="project" value="LOCAL" />
       <updated>1738004360795</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Сделаны фоны для менюшек. Сделано меню на escape.">
+      <option name="closed" value="true" />
+      <created>1738175686567</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1738175686567</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Сделан delay перед завершением уровня. Пофикшены некоторые баги.">
+      <option name="closed" value="true" />
+      <created>1738259699684</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1738259699684</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -207,6 +227,8 @@
     <MESSAGE value="Реализован класс предметов, которые можно собирать, сделана две гифки: 1 - монетка (type = 1) 2 - мешок с монетами (type = 2), 3 - алмаз. Реализован сбор предметов по касанию и увеличение количества очков." />
     <MESSAGE value="Очень много нового. Сделан начальный экран. Сделан выбор уровней. Сделан 1-ый пробный уровень. Сделан фон таймер. Сделан экран по выводу результатов." />
     <MESSAGE value="Была вернута анимация для предметов." />
-    <option name="LAST_COMMIT_MESSAGE" value="Была вернута анимация для предметов." />
+    <MESSAGE value="Сделаны фоны для менюшек. Сделано меню на escape." />
+    <MESSAGE value="Сделан delay перед завершением уровня. Пофикшены некоторые баги." />
+    <option name="LAST_COMMIT_MESSAGE" value="Сделан delay перед завершением уровня. Пофикшены некоторые баги." />
   </component>
 </project>
