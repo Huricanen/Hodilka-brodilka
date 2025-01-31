@@ -15,6 +15,11 @@ for y in range(8):
             part.save(f'data/{y + 1}_{x + 1}.png')
 im.close()
 
+im = Image.open('data/Анимации_для_врага1.png')
+for x in range(4):
+    part = im.crop((x * 64, 0, (x + 1) * 64, 64))
+    part.save(f'data/enemies/bat/{x + 1}.png')
+im.close()
 animations = {
     'idle_down': ['1_1.png', '1_2.png', '1_3.png'],
     'idle_left': ['2_1.png', '2_2.png', '2_3.png'],
@@ -30,7 +35,8 @@ animations = {
                      '8_10.png'],
     'coin': ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png'],
     'money_bag': ['1.png', '2.png', '3.png', '4.png'],
-    'diamond': ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png', '10.png']
+    'diamond': ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png', '10.png'],
+    'bat': ['1.png', '2.png', '3.png', '4.png']
 }
 
 
@@ -58,6 +64,8 @@ class Hero(pygame.sprite.Sprite):
         self.koef_angle = 9
 
         self.score = 0
+
+        self.hp = 10
 
     def update(self):
         rects_h = [i.rect for i in horizontal_borders]
@@ -204,18 +212,82 @@ class Hud(pygame.sprite.Sprite):
                                      True, (255, 0, 0))
         self.text2 = self.font.render(f"{(pygame.time.get_ticks() - time_level_started) // 1000}", True,
                                       (255, 255, 0))
+        self.text3 = self.font.render(f'{main_character.hp}', True, (0, 255, 0))
         self.rect = pygame.Rect(1, 1, 9999, 9999)
 
     def upd(self):
         self.text = self.font.render(f"{main_character.score}", True, (255, 0, 0))
         self.text2 = self.font.render(f"{(pygame.time.get_ticks() - time_level_started) // 1000}/"
                                       f"{level_chosen * 120}", True, (255, 255, 0))
+        self.text3 = self.font.render(f'{main_character.hp}', True, (0, 255, 0))
 
 
-class Enemy:
-    def __init__(self):
-        pass
+class Enemy(pygame.sprite.Sprite):
+    def __init__(self, x, y, type, group):
+        super().__init__(group)
+        self.x = x
+        self.y = y
+        self.height = 64
+        self.width = 64
 
+        self.type = type
+        self.type_text = 'bat' if type == 1 else None
+
+        self.add(enemies)
+
+        self.anim_index = 0
+        self.anim_frames = 15
+
+        self.r = 200
+        self.rect = pygame.Rect(x, y, self.height, self.width)
+        self.watch_rect = pygame.Rect(x - self.r, y - self.r, self.height + self.r * 2, self.width + self.r * 2)
+
+        self.moving = False
+
+        self.v = 1
+
+        self.started_colliding = 0
+        self.time_to_damage = 0.5
+        self.damage = 1
+
+        self.image = pygame.image.load(f'data/enemies/{'bat' if type == 1 else None}/1.png')
+
+    def update(self):
+        x_direction = None
+        y_direction = None
+        if self.watch_rect.colliderect(main_character.rect):
+            if main_character.rect.centerx > self.rect.centerx:
+                x_direction = self.v
+            else:
+                x_direction = -self.v
+            if main_character.rect.centery > self.rect.centery:
+                y_direction = self.v
+            else:
+                y_direction = -self.v
+            self.rect.x += x_direction
+            self.rect.y += y_direction
+            self.watch_rect = pygame.Rect(self.rect.x - self.r, self.rect.y - self.r, self.height + self.r * 2,
+                                          self.width + self.r * 2)
+
+        if self.rect.colliderect(main_character.rect):
+            if not self.started_colliding:
+                self.started_colliding = pygame.time.get_ticks()
+            if (pygame.time.get_ticks() - self.started_colliding) / 1000 > self.time_to_damage:
+                self.started_colliding = 0
+                main_character.hp -= self.damage
+                hit.play()
+                hurt.play()
+        else:
+            self.started_colliding = 0
+
+        img_index = self.anim_index // self.anim_frames
+        if img_index >= len(animations[self.type_text]):
+            img_index = 0
+            self.anim_index = 0
+        self.anim_index += 1
+
+        self.image = pygame.image.load(f'data/enemies/{self.type_text}/{animations[self.type_text][img_index]}')
+        screen.blit(self.image, self.rect)
 
 class CameraGroup(pygame.sprite.Group):
     def __init__(self):
@@ -251,6 +323,7 @@ class CameraGroup(pygame.sprite.Group):
                 sprite.upd()
                 self.display_surface.blit(sprite.text, (10, 850))
                 self.display_surface.blit(sprite.text2, (960, 850))
+                self.display_surface.blit(sprite.text3, (500, 850))
             else:
                 self.display_surface.blit(sprite.image, offset_pos)
 
@@ -294,6 +367,7 @@ def start_screen():
 
 
 def choose_level():
+    global need1, level_chosen, time_level_started
     global need1, level_chosen, time_level_started
     img = pygame.image.load('data/backgrounds/bg2.png')
     color = (255, 255, 255)
@@ -342,6 +416,9 @@ def finish():
     time_level_finished = pygame.time.get_ticks()
     while (pygame.time.get_ticks() - time_level_finished) // 1000 != delay_at_the_end and not need_to_quit_level:
         pass
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load('data/main_menu_theme.mp3')
+    pygame.mixer.music.play()
     img = pygame.image.load('data/backgrounds/bg4.png')
     color = (255, 255, 255)
     color_light = (170, 170, 170)
@@ -382,12 +459,14 @@ def finish():
     [i.kill() for i in horizontal_borders]
     [i.kill() for i in vertical_borders]
     [i.kill() for i in collectibles]
+    [i.kill() for i in enemies]
 
     start_screen()
 
 
 def menu():
     global need_to_quit_level, time_level_started
+    pygame.mixer.music.stop()
     img = pygame.image.load('data/backgrounds/bg3.png')
     color = (255, 255, 255)
     color_light = (170, 170, 170)
@@ -409,6 +488,7 @@ def menu():
                     need4 = False
                     break
                 elif width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 + 50 <= mouse[1] <= height / 2 + 90:
+                    pygame.mixer.music.play()
                     need4 = False
                     break
         time_menu_is_open = pygame.time.get_ticks() - time_menu_first_opened
@@ -436,6 +516,7 @@ def start_level(level):
         main_character.y = 500
         main_character.rect.x = 500
         main_character.rect.y = 500
+        main_character.hp = 10
         main_character.update()
         g1 = Wall(-500, 1000, 1920 + 500, 2000, camera_group)
         g2 = Wall(-500, -500, 1920 + 500, 0, camera_group)
@@ -450,6 +531,9 @@ def start_level(level):
         Collectible(100, 400, 1, camera_group)
         Collectible(150, 400, 1, camera_group)
         Collectible(200, 400, 1, camera_group)
+        Enemy(600, 600, 1, camera_group)
+    pygame.mixer.music.load('data/level_music.mp3')
+    pygame.mixer.music.play()
 
 
 if __name__ == '__main__':
@@ -463,7 +547,7 @@ if __name__ == '__main__':
     level_chosen = None
     need_to_quit_level = False
 
-    delay_at_the_end = 2
+    delay_at_the_end = 1
 
     running = True
     fps = 60
@@ -481,6 +565,13 @@ if __name__ == '__main__':
     horizontal_borders = pygame.sprite.Group()
     vertical_borders = pygame.sprite.Group()
 
+    enemies = pygame.sprite.Group()
+
+    pygame.mixer.init()
+    pygame.mixer.music.load('data/main_menu_theme.mp3')
+    pygame.mixer.music.play()
+    hit = pygame.mixer.Sound('data/hit.wav')
+    hurt = pygame.mixer.Sound('data/hurt.wav')
     start_screen()
 
     hud = Hud(camera_group, level_chosen)
@@ -513,10 +604,12 @@ if __name__ == '__main__':
                 main_character.v = 4
             else:
                 main_character.v = 2
-        if (pygame.time.get_ticks() - time_level_started) // 1000 > 120 or len(collectibles.sprites()) == 0:
+        if ((pygame.time.get_ticks() - time_level_started) // 1000 > 120 or len(collectibles.sprites()) == 0 or
+                main_character.hp == 0):
             finish()
         collectibles.update()
         main_character.update()
+        enemies.update()
         camera_group.custom_draw(main_character)
         clock.tick(fps)
         pygame.display.flip()
