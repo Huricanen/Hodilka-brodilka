@@ -1,6 +1,10 @@
 import pygame
 from camera import CameraGroup
 
+"""
+В данном файле находятся все переменные, которые нужны функциям и классам в других файлах
+"""
+
 animations = {
     'idle_down': ['1_1.png', '1_2.png', '1_3.png'],
     'idle_left': ['2_1.png', '2_2.png', '2_3.png'],

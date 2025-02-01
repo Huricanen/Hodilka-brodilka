@@ -6,6 +6,10 @@ from utils_for_screens import need_to_quit_level, delay_at_the_end
 
 
 def start_screen(hero, hud):
+    """
+    Начальный экран с двумя кнопками: выйти из игры и выбрать уровень. В будущем планируется добавить настройки графики
+    и многие другие опции.
+    """
     global need1
     img = pygame.image.load('data/backgrounds/bg1.png')
     color = (255, 255, 255)
@@ -44,6 +48,10 @@ def start_screen(hero, hud):
 
 
 def choose_level(hero, hud):
+    """
+    Экран выбора уровня. Здесь присваются значения очень важным переменным, которые нужны в многих других функциях и
+    классах, так например: level_chosen и time_level_started
+    """
     global need1, level_chosen, time_level_started
     img = pygame.image.load('data/backgrounds/bg2.png')
     color = (255, 255, 255)
@@ -105,6 +113,9 @@ def choose_level(hero, hud):
 
 
 def finish(hero):
+    """
+    Экран подсчёта результатов. Музыка останавливается, все спрайты убираются и сохраняется лучший результат в БД.
+    """
     global need_to_start_main_screen, need_to_quit_level, delay_at_the_end, level_chosen, time_level_started
     time_level_finished = pygame.time.get_ticks()
     while (pygame.time.get_ticks() - time_level_finished) // 1000 != delay_at_the_end and not need_to_quit_level:
@@ -163,6 +174,10 @@ def finish(hero):
 
 
 class Hud(pygame.sprite.Sprite):
+    """
+    Класс информации о счете. Хранит информацию о здоровье, времени, проведенном на уровне, и о очках, заработанных
+    за сбор предметов.
+    """
     def __init__(self, group, lc, t, hero):
         super().__init__(group)
         self.hero = hero
@@ -176,7 +191,6 @@ class Hud(pygame.sprite.Sprite):
         self.rect = pygame.Rect(1, 1, 9999, 9999)
 
     def upd(self):
-        print(self.t)
         self.text = self.font.render(f"{self.hero.score}p.", True, (255, 0, 0))
         self.text2 = self.font.render(f"{(pygame.time.get_ticks() - self.t) // 1000}/"
                                       f"{self.lc * 120}", True, (255, 255, 0))
@@ -184,6 +198,10 @@ class Hud(pygame.sprite.Sprite):
 
 
 def menu(need_to_quit_level, time_level_started, hud):
+    """
+    Экран меню на Escape. Во время открытого меню время игры корректируется, чтобы пока меню открыто время не
+    увеличивалось в hud. В меню есть две опции: вернуться на уровень или выйти в основное меню.
+    """
     pygame.mixer.music.stop()
     img = pygame.image.load('data/backgrounds/bg3.png')
     color = (255, 255, 255)

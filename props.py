@@ -3,6 +3,11 @@ from utils import vertical_borders, horizontal_borders, screen, animations, coll
 
 
 class Wall(pygame.sprite.Sprite):
+    """
+    Класс стены. Физика стен и героя прописана в классе героя. В зависимости от преобладающей стороны стена добавляется
+    в группу спрайтов. Сделано две группы спрайтов, чтобы если персонаж стукался например в угол об две стены, то тогда
+    он не смог бы пройти.
+    """
     def __init__(self, x1, y1, x2, y2, group):
         super().__init__(group)
         if x2 - x1 <= y2 - y1:
@@ -20,6 +25,9 @@ class Wall(pygame.sprite.Sprite):
 
 
 class Collectible(pygame.sprite.Sprite):
+    """
+    Класс предмета для сбора героем. В зависимости от типа предмета меняется его стоимость в очках и его вид на поле.
+    """
     def __init__(self, x, y, type, group):
         super().__init__(group)
         self.image = None

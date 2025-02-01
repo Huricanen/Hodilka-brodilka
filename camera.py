@@ -2,6 +2,10 @@ import pygame
 
 
 class CameraGroup(pygame.sprite.Group):
+    """
+    Класс камеры. Нужен, чтобы персонаж всегда оставался в центре, а все спрайты перемещались относительно него.
+    Исключением для смещения является текст hud.
+    """
     def __init__(self):
         super().__init__()
         self.display_surface = pygame.display.get_surface()
