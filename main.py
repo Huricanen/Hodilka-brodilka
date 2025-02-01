@@ -557,26 +557,27 @@ def start_level(level):
         Collectible(200, 400, 1, camera_group)
         Enemy(600, 600, 1, 300, camera_group)
     if level == 2:
-        main_character.x = 500
-        main_character.y = 500
-        main_character.rect.x = 500
-        main_character.rect.y = 500
-        main_character.hp = 10
+        main_character.x = 900
+        main_character.y = 700
+        main_character.rect.x = 900
+        main_character.rect.y = 700
+        main_character.hp = 20
         main_character.update()
         g1 = Wall(-500, 1000, 1920 + 500, 2000, camera_group)
         g2 = Wall(-500, -500, 1920 + 500, 0, camera_group)
         g3 = Wall(-1000, -500, 0, 1080 + 500, camera_group)
         g4 = Wall(1920, -500, 1920 + 1000, 1500, camera_group)
-        w = Wall(251, 205, 270, 405, camera_group)
-        k = Wall(100, 300, 400, 310, camera_group)
+        w = Wall(0, 205, 270, 210, camera_group)
+        k = Wall(200, 300, 205, 800, camera_group)
         c = Collectible(150, 40, 1, camera_group)
-        f = Collectible(300, 40, 2, camera_group)
-        v = Collectible(200, 80, 3, camera_group)
-        Collectible(50, 400, 1, camera_group)
-        Collectible(100, 400, 1, camera_group)
-        Collectible(150, 400, 1, camera_group)
+        f = Collectible(600, 300, 2, camera_group)
+        v = Collectible(1000, 80, 3, camera_group)
+        Collectible(1700, 400, 3, camera_group)
         Collectible(200, 400, 1, camera_group)
-        Enemy(600, 600, 1, 300, camera_group)
+        Enemy(600, 300, 1, 300, camera_group)
+        Enemy(800, 120, 1, 300, camera_group)
+        Enemy(80, 200, 1, 300, camera_group)
+        Enemy(500, 300, 1, 300, camera_group)
     pygame.mixer.music.load('data/level_music.mp3')
     pygame.mixer.music.play()
 
