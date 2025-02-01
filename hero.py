@@ -99,7 +99,7 @@ class Hero(pygame.sprite.Sprite):
 
             self.rect = pygame.Rect(self.x, self.y, self.height, self.width)
 
-            self.image = pygame.image.load(f'data/{animations[f'moving_{self.facing}'][img_index]}')
+            self.image = pygame.image.load(f"data/{animations[f'moving_{self.facing}'][img_index]}")
             screen.blit(self.image, self.rect)
         else:
             self.anim_frames = 60
@@ -109,5 +109,5 @@ class Hero(pygame.sprite.Sprite):
                 self.anim_index = 0
             self.anim_index += 1
 
-            self.image = pygame.image.load(f'data/{animations[f'idle_{self.facing}'][img_index]}')
+            self.image = pygame.image.load(f"data/{animations[f'idle_{self.facing}'][img_index]}")
             screen.blit(self.image, self.rect)
