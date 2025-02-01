@@ -4,15 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Сделано сохранение в БД и автозагрузка данных пользователя.">
+    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Сделан второй уровень">
+      <change afterPath="$PROJECT_DIR$/camera.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db_funcs.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hero.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/level_generation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/props.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screens.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils_for_screens.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/user_data.db" beforeDir="false" afterPath="$PROJECT_DIR$/data/user_data.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -203,7 +218,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738408771005</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Сделан второй уровень">
+      <option name="closed" value="true" />
+      <created>1738409770720</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1738409770720</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -244,6 +267,7 @@
     <MESSAGE value="Сделан delay перед завершением уровня. Пофикшены некоторые баги." />
     <MESSAGE value="Реализован 1-ый тип врагов. Реализовано здоровье, звуки и музыка" />
     <MESSAGE value="Сделано сохранение в БД и автозагрузка данных пользователя." />
-    <option name="LAST_COMMIT_MESSAGE" value="Сделано сохранение в БД и автозагрузка данных пользователя." />
+    <MESSAGE value="Сделан второй уровень" />
+    <option name="LAST_COMMIT_MESSAGE" value="Сделан второй уровень" />
   </component>
 </project>
