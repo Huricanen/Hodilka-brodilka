@@ -176,7 +176,6 @@ class Hud(pygame.sprite.Sprite):
         self.rect = pygame.Rect(1, 1, 9999, 9999)
 
     def upd(self):
-        print(self.t)
         self.text = self.font.render(f"{self.hero.score}p.", True, (255, 0, 0))
         self.text2 = self.font.render(f"{(pygame.time.get_ticks() - self.t) // 1000}/"
                                       f"{self.lc * 120}", True, (255, 255, 0))
