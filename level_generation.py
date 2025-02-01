@@ -5,6 +5,9 @@ from utils import camera_group
 
 
 def start_level(level, hero, t):
+    """
+    Функция по генерации уровня. В зависимости от номера уровня генерируются препятствия, предметы для сбора и монстры.
+    """
     if level == 1:
         hero.x = 500
         hero.y = 500

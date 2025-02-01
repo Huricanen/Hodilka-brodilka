@@ -4,6 +4,10 @@ from _socket import gethostname
 
 
 def auto_login():
+    """
+    Функция по автоматической загрузке данных и передаче их в переменную scores. Автозагрузка происходит при помощи
+    gethostname(), что позволяет получить практически уникальный ключ.
+    """
     con = sqlite3.connect('data/user_data.db')
     cur = con.cursor()
     num_id = gethostname()
@@ -18,6 +22,10 @@ def auto_login():
 
 
 def save_results_in_db(level, level_stats):
+    """
+    Функция, которая сохраняет результат прохождения уровня в БД, только при условии, что этот результат лучше, чем тот,
+    который уже в БД
+    """
     score = level_stats[0]
     time = level_stats[1]
     con = sqlite3.connect('data/user_data.db')

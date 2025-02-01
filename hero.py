@@ -2,6 +2,11 @@ import pygame
 from utils import horizontal_borders, vertical_borders, collectibles, animations, screen
 
 class Hero(pygame.sprite.Sprite):
+    """
+    Класс героя. Содержит в себе все параметры героя (здоровье, скорость, направление и др.). Здесь реализована вся
+    физика героя с предметами для сбора и стенами. Герой имеет особую возможность обходить стены: эта возможность
+    зависит от коэффициента в классе героя.
+    """
     def __init__(self, x, y, h, w, group):
         super().__init__(group)
         self.x = x

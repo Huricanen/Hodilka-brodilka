@@ -4,6 +4,10 @@ from utils import enemies, screen, animations, hurt, hit
 
 
 class Enemy(pygame.sprite.Sprite):
+    """
+    Класс врага. У врага есть прямоугольник его поле зрения и прямоугольник где он начинает наносить урон герою.
+    Урон можно менять, время для нанесения урона можно менять. В будущем рассматривается несколько видов врагов.
+    """
     def __init__(self, x, y, type, r, hero, group):
         super().__init__(group)
         self.x = x
