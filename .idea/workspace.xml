@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Сделан delay перед завершением уровня. Пофикшены некоторые баги.">
-      <change afterPath="$PROJECT_DIR$/data/hit.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/hurt.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/level_music.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/main_menu_theme.mp3" afterDir="false" />
+    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Реализован 1-ый тип врагов. Реализовано здоровье, звуки и музыка">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -39,7 +35,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Python.main.executor": "Run",
+    "Python.main.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "RK",
@@ -190,7 +186,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738259699684</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Реализован 1-ый тип врагов. Реализовано здоровье, звуки и музыка">
+      <option name="closed" value="true" />
+      <created>1738343972459</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1738343972459</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -229,6 +233,7 @@
     <MESSAGE value="Была вернута анимация для предметов." />
     <MESSAGE value="Сделаны фоны для менюшек. Сделано меню на escape." />
     <MESSAGE value="Сделан delay перед завершением уровня. Пофикшены некоторые баги." />
-    <option name="LAST_COMMIT_MESSAGE" value="Сделан delay перед завершением уровня. Пофикшены некоторые баги." />
+    <MESSAGE value="Реализован 1-ый тип врагов. Реализовано здоровье, звуки и музыка" />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализован 1-ый тип врагов. Реализовано здоровье, звуки и музыка" />
   </component>
 </project>

@@ -1,6 +1,11 @@
+import os
+import sqlite3
+from socket import socket
+
 import pygame
 import gif_pygame
 from PIL import Image
+from _socket import gethostname
 
 im = Image.open('data/Анимации_для_главного_героя.png')
 for y in range(8):
@@ -207,23 +212,22 @@ class Collectible(pygame.sprite.Sprite):
 class Hud(pygame.sprite.Sprite):
     def __init__(self, group, level):
         super().__init__(group)
-        self.font = pygame.font.SysFont('Serif', 250)
-        self.text = self.font.render(f"{main_character.score}/{level_chosen * 120}",
-                                     True, (255, 0, 0))
+        self.font = pygame.font.SysFont('', 250)
+        self.text = self.font.render(f"{main_character.score}", True, (255, 0, 0))
         self.text2 = self.font.render(f"{(pygame.time.get_ticks() - time_level_started) // 1000}", True,
                                       (255, 255, 0))
-        self.text3 = self.font.render(f'{main_character.hp}', True, (0, 255, 0))
+        self.text3 = self.font.render(f'{main_character.hp}hp', True, (0, 255, 0))
         self.rect = pygame.Rect(1, 1, 9999, 9999)
 
     def upd(self):
-        self.text = self.font.render(f"{main_character.score}", True, (255, 0, 0))
+        self.text = self.font.render(f"{main_character.score}p.", True, (255, 0, 0))
         self.text2 = self.font.render(f"{(pygame.time.get_ticks() - time_level_started) // 1000}/"
                                       f"{level_chosen * 120}", True, (255, 255, 0))
-        self.text3 = self.font.render(f'{main_character.hp}', True, (0, 255, 0))
+        self.text3 = self.font.render(f'{main_character.hp}hp', True, (0, 255, 0))
 
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, x, y, type, group):
+    def __init__(self, x, y, type, r, group):
         super().__init__(group)
         self.x = x
         self.y = y
@@ -238,7 +242,7 @@ class Enemy(pygame.sprite.Sprite):
         self.anim_index = 0
         self.anim_frames = 15
 
-        self.r = 200
+        self.r = r
         self.rect = pygame.Rect(x, y, self.height, self.width)
         self.watch_rect = pygame.Rect(x - self.r, y - self.r, self.height + self.r * 2, self.width + self.r * 2)
 
@@ -258,12 +262,16 @@ class Enemy(pygame.sprite.Sprite):
         if self.watch_rect.colliderect(main_character.rect):
             if main_character.rect.centerx > self.rect.centerx:
                 x_direction = self.v
-            else:
+            elif main_character.rect.centerx < self.rect.centerx:
                 x_direction = -self.v
+            else:
+                x_direction = 0
             if main_character.rect.centery > self.rect.centery:
                 y_direction = self.v
-            else:
+            elif main_character.rect.centery < self.rect.centery:
                 y_direction = -self.v
+            else:
+                y_direction = 0
             self.rect.x += x_direction
             self.rect.y += y_direction
             self.watch_rect = pygame.Rect(self.rect.x - self.r, self.rect.y - self.r, self.height + self.r * 2,
@@ -288,6 +296,7 @@ class Enemy(pygame.sprite.Sprite):
 
         self.image = pygame.image.load(f'data/enemies/{self.type_text}/{animations[self.type_text][img_index]}')
         screen.blit(self.image, self.rect)
+
 
 class CameraGroup(pygame.sprite.Group):
     def __init__(self):
@@ -321,9 +330,10 @@ class CameraGroup(pygame.sprite.Group):
             offset_pos = sprite.rect.topleft - self.offset
             if sprite.image is None:
                 sprite.upd()
-                self.display_surface.blit(sprite.text, (10, 850))
-                self.display_surface.blit(sprite.text2, (960, 850))
-                self.display_surface.blit(sprite.text3, (500, 850))
+                pygame.draw.rect(self.display_surface, (10, 10, 10), (0, 900, 1920, 1080))
+                self.display_surface.blit(sprite.text, (10, 900))
+                self.display_surface.blit(sprite.text2, (960, 900))
+                self.display_surface.blit(sprite.text3, (500, 900))
             else:
                 self.display_surface.blit(sprite.image, offset_pos)
 
@@ -368,7 +378,6 @@ def start_screen():
 
 def choose_level():
     global need1, level_chosen, time_level_started
-    global need1, level_chosen, time_level_started
     img = pygame.image.load('data/backgrounds/bg2.png')
     color = (255, 255, 255)
     color_light = (170, 170, 170)
@@ -378,6 +387,7 @@ def choose_level():
     height = screen.get_height()
     text1 = smallfont.render('Go back', True, color)
     text2 = smallfont.render('level 1', True, color)
+    text3 = smallfont.render('level 2', True, color)
     need = True
 
     while need:
@@ -392,6 +402,11 @@ def choose_level():
                     need = False
                     need1 = False
                     break
+                elif width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 + 90 <= mouse[1] <= height / 2 + 140:
+                    level_chosen = 2
+                    need = False
+                    need1 = False
+                    break
         screen.blit(img, (0, 0))
         mouse = pygame.mouse.get_pos()
         if width / 2 - 140 <= mouse[0] <= width / 2 + 140 and height / 2 <= mouse[1] <= height / 2 + 40:
@@ -402,8 +417,13 @@ def choose_level():
             pygame.draw.rect(screen, color_light, [width / 2 - 140, height / 2 + 50, 280, 40])
         else:
             pygame.draw.rect(screen, color_dark, [width / 2 - 140, height / 2 + 50, 280, 40])
+        if width / 2 - 140 <= mouse[0] < width / 2 + 140 and height / 2 + 90 <= mouse[1] <= height / 2 + 140:
+            pygame.draw.rect(screen, color_light, [width / 2 - 140, height / 2 + 100, 280, 40])
+        else:
+            pygame.draw.rect(screen, color_dark, [width / 2 - 140, height / 2 + 100, 280, 40])
         screen.blit(text1, (width / 2 - 50, height / 2))
         screen.blit(text2, (width / 2 - 25, height / 2 + 50))
+        screen.blit(text3, (width / 2 - 25, height / 2 + 100))
 
         pygame.display.update()
 
@@ -412,7 +432,7 @@ def choose_level():
 
 
 def finish():
-    global need_to_start_main_screen, need_to_quit_level, delay_at_the_end
+    global need_to_start_main_screen, need_to_quit_level, delay_at_the_end, time_level_started, level_chosen
     time_level_finished = pygame.time.get_ticks()
     while (pygame.time.get_ticks() - time_level_finished) // 1000 != delay_at_the_end and not need_to_quit_level:
         pass
@@ -420,6 +440,9 @@ def finish():
     pygame.mixer.music.load('data/main_menu_theme.mp3')
     pygame.mixer.music.play()
     img = pygame.image.load('data/backgrounds/bg4.png')
+    save_results_in_db(level_chosen,
+                       [main_character.score,
+                        f'{(time_level_finished - time_level_started) // 1000}/{level_chosen * 120}'])
     color = (255, 255, 255)
     color_light = (170, 170, 170)
     color_dark = (100, 100, 100)
@@ -430,6 +453,7 @@ def finish():
     text2 = smallfont.render('quit', True, color)
     text3 = smallfont.render(f'Your score: {main_character.score}', True, (255, 0, 0))
     main_character.score = 0
+    level_chosen = None
     time_level_started = None
     need_to_start_main_screen = False
     need3 = True
@@ -531,12 +555,63 @@ def start_level(level):
         Collectible(100, 400, 1, camera_group)
         Collectible(150, 400, 1, camera_group)
         Collectible(200, 400, 1, camera_group)
-        Enemy(600, 600, 1, camera_group)
+        Enemy(600, 600, 1, 300, camera_group)
+    if level == 2:
+        main_character.x = 500
+        main_character.y = 500
+        main_character.rect.x = 500
+        main_character.rect.y = 500
+        main_character.hp = 10
+        main_character.update()
+        g1 = Wall(-500, 1000, 1920 + 500, 2000, camera_group)
+        g2 = Wall(-500, -500, 1920 + 500, 0, camera_group)
+        g3 = Wall(-1000, -500, 0, 1080 + 500, camera_group)
+        g4 = Wall(1920, -500, 1920 + 1000, 1500, camera_group)
+        w = Wall(251, 205, 270, 405, camera_group)
+        k = Wall(100, 300, 400, 310, camera_group)
+        c = Collectible(150, 40, 1, camera_group)
+        f = Collectible(300, 40, 2, camera_group)
+        v = Collectible(200, 80, 3, camera_group)
+        Collectible(50, 400, 1, camera_group)
+        Collectible(100, 400, 1, camera_group)
+        Collectible(150, 400, 1, camera_group)
+        Collectible(200, 400, 1, camera_group)
+        Enemy(600, 600, 1, 300, camera_group)
     pygame.mixer.music.load('data/level_music.mp3')
     pygame.mixer.music.play()
 
 
+def auto_login():
+    con = sqlite3.connect('data/user_data.db')
+    cur = con.cursor()
+    num_id = gethostname()
+    if num_id in [i[0] for i in cur.execute("SELECT num_id FROM users_scores").fetchall()]:
+        scores = cur.execute(f"SELECT level_1, level_2, level_3 FROM users_scores WHERE num_id = '{num_id}'").fetchone()
+    else:
+        cur.execute(f"Insert into users_scores (num_id, level_1, level_2, level_3) VALUES ('{num_id}',"
+                    f" '[0, 0/120]', '[0, 0/240]', '[0, 0/360]')")
+        con.commit()
+        scores = cur.execute(f"SELECT level_1, level_2, level_3 FROM users_scores WHERE num_id = '{num_id}'").fetchone()
+    return scores
+
+
+def save_results_in_db(level, level_stats):
+    score = level_stats[0]
+    time = level_stats[1]
+    con = sqlite3.connect('data/user_data.db')
+    cur = con.cursor()
+    num_id = gethostname()
+    curr_max_score = cur.execute(f"SELECT level_{level} FROM users_scores WHERE num_id = '{num_id}'").fetchone()
+    if (eval(curr_max_score[0])[0] < score or
+        (eval(curr_max_score[0])[0] == score and eval(curr_max_score[0])[1] > int(time.split('/')[0]) / int(time.split(
+            '/')[1]))):
+        cur.execute(f"UPDATE users_scores SET level_{level} = '[{score}, {time}]' WHERE num_id = '{num_id}'")
+    con.commit()
+
+
 if __name__ == '__main__':
+
+    scores = auto_login()
 
     pygame.init()
     pygame.display.set_caption('Ходилка-бродилка')
