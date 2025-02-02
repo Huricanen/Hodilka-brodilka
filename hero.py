@@ -1,5 +1,5 @@
 import pygame
-from utils import horizontal_borders, vertical_borders, collectibles, animations, screen
+from utils import horizontal_borders, vertical_borders, collectibles, animations, screen, pick_up
 
 class Hero(pygame.sprite.Sprite):
     """
@@ -75,6 +75,7 @@ class Hero(pygame.sprite.Sprite):
         rects_coll = [i.rect for i in collectibles]
         collision_index_coll = self.rect.collidelist(rects_coll)
         if collision_index_coll != -1:
+            pick_up.play()
             self.score += collectibles.sprites()[collision_index_coll].cost
             collectibles.sprites()[collision_index_coll].kill()
 

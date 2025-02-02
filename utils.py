@@ -36,5 +36,6 @@ enemies = pygame.sprite.Group()
 
 hit = pygame.mixer.Sound('data/hit.wav')
 hurt = pygame.mixer.Sound('data/hurt.wav')
+pick_up = pygame.mixer.Sound('data/item.wav')
 
 camera_group = CameraGroup()

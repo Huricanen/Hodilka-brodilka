@@ -87,7 +87,7 @@ if __name__ == '__main__':
                     level_chosen, time_level_started = start_screen(main_character, hud)
         elif ((pygame.time.get_ticks() - time_level_started) // 1000 > level_chosen * 120
                 or len(collectibles.sprites()) <= 0 or
-                main_character.hp == 0) and time_level_started and level_chosen:
+                main_character.hp <= 0) and time_level_started and level_chosen:
             time_level_started, level_chosen, ntsms, need_to_quit_level = finish(main_character)
             if ntsms:
                 while not level_chosen or not time_level_started:
