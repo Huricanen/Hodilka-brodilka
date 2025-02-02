@@ -107,6 +107,7 @@ def choose_level(hero, hud):
         time_level_started = pygame.time.get_ticks()
         if hud is not None:
             hud.t = pygame.time.get_ticks()
+            hud.lc = level_chosen
     if not need1:
         return start_level(level_chosen, hero, time_level_started)
     return 0, 0
