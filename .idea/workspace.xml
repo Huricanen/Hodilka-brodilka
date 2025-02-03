@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Пофикшены баги. Сделан звук для побора предметов.">
-      <change afterPath="$PROJECT_DIR$/data/backgrounds/bg5.png" afterDir="false" />
+    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Сделана таблица лидеров и добавлено итоговое время на уровне на финальном экране.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/user_data.db" beforeDir="false" afterPath="$PROJECT_DIR$/data/user_data.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/level_generation.py" beforeDir="false" afterPath="$PROJECT_DIR$/level_generation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens.py" beforeDir="false" afterPath="$PROJECT_DIR$/screens.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -268,7 +266,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738484656490</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Сделана таблица лидеров и добавлено итоговое время на уровне на финальном экране.">
+      <option name="closed" value="true" />
+      <created>1738606050204</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1738606050204</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -315,6 +321,7 @@
     <MESSAGE value="Сделан requirements.txt" />
     <MESSAGE value="Поправлены f-строки" />
     <MESSAGE value="Пофикшены баги. Сделан звук для побора предметов." />
-    <option name="LAST_COMMIT_MESSAGE" value="Пофикшены баги. Сделан звук для побора предметов." />
+    <MESSAGE value="Сделана таблица лидеров и добавлено итоговое время на уровне на финальном экране." />
+    <option name="LAST_COMMIT_MESSAGE" value="Сделана таблица лидеров и добавлено итоговое время на уровне на финальном экране." />
   </component>
 </project>

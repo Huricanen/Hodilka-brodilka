@@ -9,32 +9,50 @@ def start_level(level, hero, t):
     Функция по генерации уровня. В зависимости от номера уровня генерируются препятствия, предметы для сбора и монстры.
     """
     if level == 1:
-        hero.x = 500
-        hero.y = 500
-        hero.rect.x = 500
-        hero.rect.y = 500
-        hero.hp = 10
+        hero.x = 1920 // 2
+        hero.y = 1080 // 2
+        hero.rect.x = 1920 // 2
+        hero.rect.y = 1080 // 2
+        hero.hp = 50
         hero.update()
         g1 = Wall(-500, 1000, 1920 + 500, 2000, camera_group)
         g2 = Wall(-500, -500, 1920 + 500, 0, camera_group)
         g3 = Wall(-1000, -500, 0, 1080 + 500, camera_group)
         g4 = Wall(1920, -500, 1920 + 1000, 1500, camera_group)
-        w = Wall(251, 205, 270, 405, camera_group)
-        k = Wall(100, 300, 400, 310, camera_group)
-        c = Collectible(150, 40, 1, camera_group)
-        f = Collectible(300, 40, 2, camera_group)
-        v = Collectible(200, 80, 3, camera_group)
-        Collectible(50, 400, 1, camera_group)
-        Collectible(100, 400, 1, camera_group)
-        Collectible(150, 400, 1, camera_group)
-        Collectible(200, 400, 1, camera_group)
-        Enemy(600, 600, 1, 1000, hero, camera_group)
+        w = Wall(500, 200, 800, 210, camera_group)
+        k = Wall(1920 - 800, 200, 1920 - 500, 210, camera_group)
+        w = Wall(500, 1080 - 210 - 50, 800, 1080 - 200 - 50, camera_group)
+        k = Wall(1920 - 800, 1080 - 210 - 50, 1920 - 500, 1080 - 200 - 50, camera_group)
+        w = Wall(500, 200, 510, 400, camera_group)
+        k = Wall(1920 - 510, 200, 1920 - 500, 400, camera_group)
+        w = Wall(500, 1080 - 400 - 50, 510, 1080 - 200 - 50, camera_group)
+        k = Wall(1920 - 510, 1080 - 400 - 50, 1920 - 500, 1080 - 200 - 50, camera_group)
+        c = Collectible(1920 - 200, 1080 - 200, 3, camera_group)
+        f = Collectible(1920 - 200, 100, 3, camera_group)
+        v = Collectible(100, 100, 3, camera_group)
+        v = Collectible(100, 1080 - 200, 3, camera_group)
+        boss = Enemy(1920 - 200, 100, 1, 2000, hero, camera_group)
+        boss.damage = 5
+        boss.time_to_damage = 0.2
+        boss.v = 1
+        boss1 = Enemy(1920 - 200, 1080 - 200, 1, 2000, hero, camera_group)
+        boss1.damage = 5
+        boss1.time_to_damage = 0.2
+        boss1.v = 1
+        boss2 = Enemy(100, 100, 1, 2000, hero, camera_group)
+        boss2.damage = 5
+        boss2.time_to_damage = 0.2
+        boss2.v = 1
+        boss3 = Enemy(100, 1080 - 200, 1, 2000, hero, camera_group)
+        boss3.damage = 5
+        boss3.time_to_damage = 0.2
+        boss3.v = 1
     if level == 2:
         hero.x = 100
         hero.y = 100
         hero.rect.x = 100
         hero.rect.y = 100
-        hero.hp = 20
+        hero.hp = 10
         hero.update()
         g1 = Wall(-500, 1000, 1920 + 500, 2000, camera_group)
         g2 = Wall(-500, -500, 1920 + 500, 0, camera_group)
