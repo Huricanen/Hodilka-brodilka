@@ -18,11 +18,13 @@ def start_screen(hero, hud):
     color_light = (170, 170, 170)
     color_dark = (100, 100, 100)
     width = screen.get_width()
+    bigfont = pygame.font.SysFont('', 100)
     smallfont = pygame.font.SysFont('Corbel', 35)
     height = screen.get_height()
     text1 = smallfont.render('Exit', True, color)
     text2 = smallfont.render('choose level', True, color)
     text3 = smallfont.render('table of leaders', True, color)
+    text4 = bigfont.render('Hodilka-Brodilka', True, (255, 180, 30))
     need1 = True
 
     while need1:
@@ -54,6 +56,7 @@ def start_screen(hero, hud):
         screen.blit(text1, (width / 2 - 25, height / 2))
         screen.blit(text2, (width / 2 - 75, height / 2 + 50))
         screen.blit(text3, (width / 2 - 100, height / 2 + 100))
+        screen.blit(text4, (width / 2 - 270, height / 2 - 150))
 
         pygame.display.update()
 
@@ -202,14 +205,14 @@ def top():
     height = screen.get_height()
     con = sqlite3.connect('data/user_data.db')
     cur = con.cursor()
-    level_1_leaders = dict(enumerate(sorted(cur.execute("""SELECT num_id, level_1 FROM users_scores""").fetchall()[:5],
+    level_1_leaders = dict(enumerate(sorted(cur.execute("""SELECT num_id, level_1 FROM users_scores""").fetchall(),
                                             key=lambda x: (-eval(x[1])[0], -eval(x[1])[1]))))
-    level_2_leaders = dict(enumerate(sorted(cur.execute("""SELECT num_id, level_2 FROM users_scores""").fetchall()[:5],
+    level_2_leaders = dict(enumerate(sorted(cur.execute("""SELECT num_id, level_2 FROM users_scores""").fetchall(),
                                             key=lambda x: (-eval(x[1])[0], -eval(x[1])[1]))))
     text_level_1_leaders = [f"{k + 1}: {f'{v[0][:10]}...' if len(v[0]) > 10 else v[0]} - {v[1]}" for k, v in
-                            level_1_leaders.items()]
+                            level_1_leaders.items()][:5]
     text_level_2_leaders = [f"{k + 1}: {f'{v[0][:10]}...' if len(v[0]) > 10 else v[0]} - {v[1]}" for k, v in
-                            level_2_leaders.items()]
+                            level_2_leaders.items()][:5]
     top_1_1 = smallfont.render(text_level_1_leaders[0], True, color)
     top_1_2 = smallfont.render(text_level_1_leaders[1], True, color)
     top_1_3 = smallfont.render(text_level_1_leaders[2], True, color)

@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Сделан 1-ый уровень">
+    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Протестирован git clone, поправлены соответствующие баги отображения.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/user_data.db" beforeDir="false" afterPath="$PROJECT_DIR$/data/user_data.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/enemy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens.py" beforeDir="false" afterPath="$PROJECT_DIR$/screens.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -281,7 +283,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738607494331</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Протестирован git clone, поправлены соответствующие баги отображения.">
+      <option name="closed" value="true" />
+      <created>1738644334999</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1738644334999</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -330,6 +340,7 @@
     <MESSAGE value="Пофикшены баги. Сделан звук для побора предметов." />
     <MESSAGE value="Сделана таблица лидеров и добавлено итоговое время на уровне на финальном экране." />
     <MESSAGE value="Сделан 1-ый уровень" />
-    <option name="LAST_COMMIT_MESSAGE" value="Сделан 1-ый уровень" />
+    <MESSAGE value="Протестирован git clone, поправлены соответствующие баги отображения." />
+    <option name="LAST_COMMIT_MESSAGE" value="Протестирован git clone, поправлены соответствующие баги отображения." />
   </component>
 </project>
