@@ -37,7 +37,7 @@ class Enemy(pygame.sprite.Sprite):
         self.time_to_damage = 0.5
         self.damage = 1
 
-        self.image = pygame.image.load(f'data/enemies/{'bat' if type == 1 else None}/1.png')
+        self.image = pygame.image.load(f'data/enemies/{"bat" if type == 1 else None}/1.png')
 
     def update(self):
         x_direction = None
