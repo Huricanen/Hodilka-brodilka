@@ -206,15 +206,23 @@ def top():
                                             key=lambda x: (-eval(x[1])[0], -eval(x[1])[1]))))
     level_2_leaders = dict(enumerate(sorted(cur.execute("""SELECT num_id, level_2 FROM users_scores""").fetchall()[:5],
                                             key=lambda x: (-eval(x[1])[0], -eval(x[1])[1]))))
-    text_level_1_leaders = '\n'.join([f"{k + 1}: {f'{v[0][:10]}...' if len(v[0]) > 10 else v[0]} - {v[1]}" for k, v in
-                                      level_1_leaders.items()])
-    text_level_2_leaders = '\n'.join([f"{k + 1}: {f'{v[0][:10]}...' if len(v[0]) > 10 else v[0]} - {v[1]}" for k, v in
-                                      level_2_leaders.items()])
+    text_level_1_leaders = [f"{k + 1}: {f'{v[0][:10]}...' if len(v[0]) > 10 else v[0]} - {v[1]}" for k, v in
+                            level_1_leaders.items()]
+    text_level_2_leaders = [f"{k + 1}: {f'{v[0][:10]}...' if len(v[0]) > 10 else v[0]} - {v[1]}" for k, v in
+                            level_2_leaders.items()]
+    top_1_1 = smallfont.render(text_level_1_leaders[0], True, color)
+    top_1_2 = smallfont.render(text_level_1_leaders[1], True, color)
+    top_1_3 = smallfont.render(text_level_1_leaders[2], True, color)
+    top_1_4 = smallfont.render(text_level_1_leaders[3], True, color)
+    top_1_5 = smallfont.render(text_level_1_leaders[4], True, color)
+    top_2_1 = smallfont.render(text_level_2_leaders[0], True, color)
+    top_2_2 = smallfont.render(text_level_2_leaders[1], True, color)
+    top_2_3 = smallfont.render(text_level_2_leaders[2], True, color)
+    top_2_4 = smallfont.render(text_level_2_leaders[3], True, color)
+    top_2_5 = smallfont.render(text_level_2_leaders[4], True, color)
 
     text1 = smallfont.render('Level №1', True, color)
-    text1_leaders = smallfont.render(text_level_1_leaders, True, color)
     text2 = smallfont.render('Level №2', True, color)
-    text2_leaders = smallfont.render(text_level_2_leaders, True, color)
     text3 = smallfont.render('Go back', True, color)
 
     mouse = pygame.mouse.get_pos()
@@ -234,9 +242,19 @@ def top():
         else:
             pygame.draw.rect(screen, color_dark, [width / 2 - 140, height / 2 + 100, 280, 40])
         screen.blit(text1, (width / 2 - 90 - 400, height / 2 - 200))
-        screen.blit(text1_leaders, (width / 2 - 90 - 400, height / 2 - 120))
+        screen.blit(top_1_1, (width / 2 - 90 - 400, height / 2 - 120))
+        screen.blit(top_1_2, (width / 2 - 90 - 400, height / 2 - 90))
+        screen.blit(top_1_3, (width / 2 - 90 - 400, height / 2 - 60))
+        screen.blit(top_1_4, (width / 2 - 90 - 400, height / 2 - 30))
+        screen.blit(top_1_5, (width / 2 - 90 - 400, height / 2))
+
         screen.blit(text2, (width / 2 - 90 + 200, height / 2 - 200))
-        screen.blit(text2_leaders, (width / 2 - 90 + 200, height / 2 - 120))
+        screen.blit(top_2_1, (width / 2 - 90 + 100, height / 2 - 120))
+        screen.blit(top_2_2, (width / 2 - 90 + 100, height / 2 - 90))
+        screen.blit(top_2_3, (width / 2 - 90 + 100, height / 2 - 60))
+        screen.blit(top_2_4, (width / 2 - 90 + 100, height / 2 - 30))
+        screen.blit(top_2_5, (width / 2 - 90 + 100, height / 2))
+
         screen.blit(text3, (width / 2 - 90 + 40, height / 2 + 100))
 
         pygame.display.update()
@@ -253,6 +271,7 @@ class Hud(pygame.sprite.Sprite):
         self.hero = hero
         self.t = t
         self.lc = lc
+        self.image = None
         self.font = pygame.font.SysFont('', 250)
         self.text = self.font.render(f"{self.hero.score}", True, (255, 0, 0))
         self.text2 = self.font.render(f"{(pygame.time.get_ticks() - self.t) // 1000}", True,
