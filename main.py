@@ -59,7 +59,8 @@ if __name__ == '__main__':
             if event.type == pygame.QUIT:
                 running = False
             elif time_level_started and level_chosen and pygame.key.get_pressed()[pygame.K_ESCAPE]:
-                need_to_quit_level = menu(need_to_quit_level, time_level_started, hud)
+                need_to_quit_level, time_menu_is_open = menu(need_to_quit_level, time_level_started, hud)
+                time_level_started += time_menu_is_open
             elif pygame.key.get_pressed()[pygame.K_w]:
                 main_character.facing = 'up'
                 main_character.moving = True
@@ -81,14 +82,14 @@ if __name__ == '__main__':
                 main_character.v = 2
         if need_to_quit_level:
             need_to_quit_level = False
-            time_level_started, level_chosen, ntsms, need_to_quit_level = finish(main_character)
+            time_level_started, level_chosen, ntsms, need_to_quit_level = finish(main_character, time_level_started)
             if ntsms:
                 while not level_chosen or not time_level_started:
                     level_chosen, time_level_started = start_screen(main_character, hud)
         elif ((pygame.time.get_ticks() - time_level_started) // 1000 > level_chosen * 120
                 or len(collectibles.sprites()) <= 0 or
                 main_character.hp <= 0) and time_level_started and level_chosen:
-            time_level_started, level_chosen, ntsms, need_to_quit_level = finish(main_character)
+            time_level_started, level_chosen, ntsms, need_to_quit_level = finish(main_character, time_level_started)
             if ntsms:
                 while not level_chosen or not time_level_started:
                     level_chosen, time_level_started = start_screen(main_character, hud)

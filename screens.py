@@ -127,11 +127,11 @@ def choose_level(hero, hud):
     return 0, 0
 
 
-def finish(hero):
+def finish(hero, tls):
     """
     Экран подсчёта результатов. Музыка останавливается, все спрайты убираются и сохраняется лучший результат в БД.
     """
-    global need_to_start_main_screen, need_to_quit_level, delay_at_the_end, level_chosen, time_level_started
+    global need_to_start_main_screen, need_to_quit_level, delay_at_the_end, level_chosen
     time_level_finished = pygame.time.get_ticks()
     while (pygame.time.get_ticks() - time_level_finished) // 1000 != delay_at_the_end and not need_to_quit_level:
         pass
@@ -141,7 +141,7 @@ def finish(hero):
     img = pygame.image.load('data/backgrounds/bg4.png')
     save_results_in_db(level_chosen,
                        [hero.score,
-                        f'{(time_level_finished - time_level_started) // 1000}/{level_chosen * 120}'])
+                        f'{(time_level_finished - tls) // 1000}/{level_chosen * 120}'])
     color = (255, 255, 255)
     color_light = (170, 170, 170)
     color_dark = (100, 100, 100)
@@ -151,7 +151,7 @@ def finish(hero):
     text1 = smallfont.render('Congatulations!!!', True, color)
     text2 = smallfont.render('quit', True, color)
     text3 = smallfont.render(f'Your score: {hero.score}', True, (255, 0, 0))
-    text4 = smallfont.render(f'Your time on level:{(time_level_finished - time_level_started) // 1000}', True,
+    text4 = smallfont.render(f'Your time on level:{(time_level_finished - tls) // 1000}', True,
                              (0, 255, 0))
     hero.score = 0
     level_chosen = 0
@@ -337,4 +337,4 @@ def menu(need_to_quit_level, time_level_started, hud):
 
     hud.t += time_menu_is_open
 
-    return need_to_quit_level
+    return need_to_quit_level, time_menu_is_open
