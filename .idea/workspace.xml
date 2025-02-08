@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Протестирован git clone, поправлены соответствующие баги отображения.">
+    <list default="true" id="77238e41-3a0b-48ee-b78f-7e2b8d973591" name="Changes" comment="Поправлена Таблица лидеров. Сделана красивая надпись в основном меню и поправлены f-строки">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/user_data.db" beforeDir="false" afterPath="$PROJECT_DIR$/data/user_data.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/enemy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens.py" beforeDir="false" afterPath="$PROJECT_DIR$/screens.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,7 +47,8 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;RK&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ifosk/PycharmProjects/Hodilka-brodilka/data&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ifosk/PycharmProjects/Hodilka-brodilka/data&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -291,7 +291,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738644334999</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Поправлена Таблица лидеров. Сделана красивая надпись в основном меню и поправлены f-строки">
+      <option name="closed" value="true" />
+      <created>1738686950301</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1738686950301</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -341,6 +349,7 @@
     <MESSAGE value="Сделана таблица лидеров и добавлено итоговое время на уровне на финальном экране." />
     <MESSAGE value="Сделан 1-ый уровень" />
     <MESSAGE value="Протестирован git clone, поправлены соответствующие баги отображения." />
-    <option name="LAST_COMMIT_MESSAGE" value="Протестирован git clone, поправлены соответствующие баги отображения." />
+    <MESSAGE value="Поправлена Таблица лидеров. Сделана красивая надпись в основном меню и поправлены f-строки" />
+    <option name="LAST_COMMIT_MESSAGE" value="Поправлена Таблица лидеров. Сделана красивая надпись в основном меню и поправлены f-строки" />
   </component>
 </project>
